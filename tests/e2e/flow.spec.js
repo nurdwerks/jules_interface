@@ -19,8 +19,8 @@ test('End to End Flow', async ({ page }) => {
   // Note: listSessions is called after create.
   await page.waitForSelector('text=E2E Test Session');
 
-  // View Session (first button)
-  await page.click('button:has-text("View")');
+  // View Session (click the item)
+  await page.click('text=E2E Test Session');
 
   // Verify details
   await page.waitForSelector('h2:has-text("sessions/mock-session-")');

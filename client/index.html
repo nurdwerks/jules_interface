@@ -24,15 +24,34 @@
                 <span class="sidebar-actions">...</span>
             </div>
 
-            <div class="sidebar-section">
+            <div class="sidebar-section" style="display: flex; flex-direction: column; height: 100%;">
                 <div class="section-header expanded">
                     <span class="codicon codicon-chevron-down">▼</span>
                     <span>SESSIONS</span>
                 </div>
+
+                <div class="sidebar-controls" style="padding: 5px 10px; display: flex; flex-direction: column; gap: 5px; border-bottom: 1px solid var(--border-color);">
+                     <select id="filter-status" class="sidebar-select">
+                        <option value="ALL">All Status</option>
+                        <option value="QUEUED">Queued</option>
+                        <option value="IN_PROGRESS">In Progress</option>
+                        <option value="DONE">Done</option>
+                        <option value="FAILED">Failed</option>
+                     </select>
+                     <select id="sort-order" class="sidebar-select">
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="name_asc">Name A-Z</option>
+                        <option value="name_desc">Name Z-A</option>
+                     </select>
+                </div>
+
+                <div id="session-list-sidebar" class="scrollable-content" style="flex: 1; padding: 0; overflow-y: auto;"></div>
+
+                <div class="section-header">
+                    <span>ACTIONS</span>
+                </div>
                 <nav id="explorer-nav">
-                    <button id="nav-list" class="explorer-item active">
-                        <span class="icon">≡</span> List Sessions
-                    </button>
                     <button id="nav-create" class="explorer-item">
                         <span class="icon">+</span> Create Session
                     </button>
@@ -54,9 +73,11 @@
 
                 <section id="view-list" class="view">
                     <div class="view-header">
-                        <h2>Sessions</h2>
+                        <h2>Welcome</h2>
                     </div>
-                    <div id="sessions-container" class="scrollable-content"></div>
+                    <div class="scrollable-content" style="padding: 20px;">
+                        <p>Select a session from the sidebar to view details.</p>
+                    </div>
                 </section>
 
                 <section id="view-create" class="view hidden">
