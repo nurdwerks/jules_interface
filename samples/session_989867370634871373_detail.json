@@ -1,0 +1,25 @@
+{
+  "name": "sessions/989867370634871373",
+  "title": "Recent Sessions with Source Filter",
+  "createTime": "2025-12-01T20:04:25.483252886Z",
+  "updateTime": "2025-12-01T21:21:21.079672Z",
+  "state": "COMPLETED",
+  "sourceContext": {
+    "source": "sources/github/nurdwerks/jules_interface",
+    "githubRepoContext": {
+      "startingBranch": "main"
+    }
+  },
+  "prompt": "Order the sessions by updateTime, with the most recent at the top. Add the ability to filter by source. By default do not show sessions with an updateTime older than 24 hours.",
+  "url": "https://jules.google.com/session/989867370634871373",
+  "id": "989867370634871373",
+  "outputs": [
+    {
+      "pullRequest": {
+        "url": "https://github.com/nurdwerks/jules_interface/pull/18",
+        "title": "Add session sorting and filtering by source/time",
+        "description": "Implemented session ordering by most recent update time and added filters for source and recent (last 24 hours) sessions to the sidebar. Verified using Playwright.\n\n---\n*PR created automatically by Jules for task [989867370634871373](https://jules.google.com/task/989867370634871373) started by @nurdwerks*"
+      }
+    }
+  ]
+}
