@@ -148,11 +148,16 @@ async function apiCall(endpoint, method = 'GET', body = null) {
         url += '/' + path;
     }
 
+    const headers = {
+        'Content-Type': 'application/json'
+    };
+    if (sessionToken) {
+        headers['Authorization'] = `Bearer ${sessionToken}`;
+    }
+
     const options = {
         method,
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        headers,
         body: body ? JSON.stringify(body) : null
     };
 
@@ -186,6 +191,16 @@ async function listSessions() {
     }
 }
 
+function getStatusColor(state) {
+    if (!state) return '#666'; // Gray
+    const s = state.toUpperCase();
+    if (s.includes('QUEUED')) return '#007acc'; // Blue
+    if (s.includes('PROGRESS') || s.includes('RUNNING') || s.includes('ACTIVE')) return '#cca700'; // Yellow
+    if (s.includes('DONE') || s.includes('SUCCEEDED') || s.includes('COMPLETED')) return '#89d185'; // Green
+    if (s.includes('FAILED') || s.includes('ERROR')) return '#f48771'; // Red
+    return '#666';
+}
+
 function renderSessions() {
     const container = document.getElementById('session-list-sidebar');
     if (!container) return;
@@ -196,7 +211,12 @@ function renderSessions() {
 
     let filtered = allSessions.filter(session => {
         if (filterStatus === 'ALL') return true;
-        return (session.state || 'UNKNOWN') === filterStatus;
+        const s = (session.state || 'UNKNOWN').toUpperCase();
+        if (filterStatus === 'QUEUED') return s.includes('QUEUED');
+        if (filterStatus === 'IN_PROGRESS') return s.includes('PROGRESS') || s.includes('RUNNING') || s.includes('ACTIVE');
+        if (filterStatus === 'DONE') return s.includes('DONE') || s.includes('SUCCEEDED') || s.includes('COMPLETED');
+        if (filterStatus === 'FAILED') return s.includes('FAILED') || s.includes('ERROR');
+        return false;
     });
 
     filtered.sort((a, b) => {
@@ -228,11 +248,12 @@ function renderSessions() {
             const shortName = session.name.split('/').pop();
             const displayName = session.prompt ? session.prompt.substring(0, 30) : shortName;
             const dateStr = session.createTime ? new Date(session.createTime).toLocaleDateString() : '';
+            const statusColor = getStatusColor(session.state);
 
             div.innerHTML = `
                 <div style="font-weight: bold; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${session.prompt || ''}">${displayName}</div>
-                <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 4px;">
-                     <span style="font-size: 0.75rem; opacity: 0.8; background-color: #444; padding: 1px 4px; border-radius: 2px;">${session.state || 'UNKNOWN'}</span>
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 4px;">
+                     <div title="${session.state || 'UNKNOWN'}" style="width: 10px; height: 10px; border-radius: 50%; background-color: ${statusColor};"></div>
                      <span style="font-size: 0.7rem; opacity: 0.6;">${dateStr}</span>
                 </div>
             `;

@@ -195,6 +195,7 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .scrollable-content {
@@ -317,12 +318,12 @@ button {
 
 .panel-left {
     flex: 1;
-    min-width: 300px;
+    min-width: 200px;
 }
 
 .panel-right {
     flex: 1;
-    min-width: 300px;
+    min-width: 200px;
     border-left: 1px solid var(--border-color);
     padding-left: 20px;
 }

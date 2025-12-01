@@ -1,7 +1,3 @@
-import crypto from 'node:crypto';
-
-const AUTH_SESSIONS = new Map();
-
 export default async function (fastify, opts) {
   fastify.get('/', { websocket: true }, (connection, req) => {
     fastify.log.info('Client connected to WebSocket');
@@ -32,12 +28,9 @@ export default async function (fastify, opts) {
 
                 if (data.type === 'auth') {
                     const { username, password } = data;
-                    const validUser = process.env.JULES_AUTH_USER || 'admin';
-                    const validPass = process.env.JULES_AUTH_PASS || 'password';
 
-                    if (username === validUser && password === validPass) {
-                        const sessionToken = crypto.randomUUID();
-                        AUTH_SESSIONS.set(sessionToken, true);
+                    if (fastify.auth.validate(username, password)) {
+                        const sessionToken = fastify.auth.createSession();
                         socket.authenticated = true;
                         socket.send(JSON.stringify({ type: 'authSuccess', sessionToken }));
                         await sendInitialData();
@@ -47,7 +40,7 @@ export default async function (fastify, opts) {
 
                 } else if (data.type === 'reconnect') {
                     const { token } = data;
-                    if (AUTH_SESSIONS.has(token)) {
+                    if (fastify.auth.verify(token)) {
                         socket.authenticated = true;
                         socket.send(JSON.stringify({ type: 'authSuccess', sessionToken: token }));
                         await sendInitialData();
