@@ -73,11 +73,35 @@ function connectWS(username, password) {
             sources = msg.sources || [];
             renderSessions();
             loadSources();
-        } else if (msg.type === 'update') {
-             // Handle updates (session state, activities)
-             // Simple polling reload or partial update
-             if (currentSessionId) viewSession(currentSessionId);
-             listSessions(); // Refresh list
+        } else if (msg.type === 'sessionUpdate') {
+             const idx = sessions.findIndex(s => s.id === msg.session.id);
+             if (idx !== -1) {
+                 sessions[idx] = msg.session;
+             } else {
+                 sessions.unshift(msg.session);
+             }
+             renderSessions();
+             if (currentSessionId === msg.session.name) {
+                 // Update details view header/info if viewing this session
+                 const titleEl = document.getElementById('session-title');
+                 if(titleEl) titleEl.innerText = msg.session.prompt || msg.session.name;
+                 const infoEl = document.getElementById('session-info');
+                 if(infoEl) {
+                     infoEl.innerHTML = `
+                        <p><strong>ID:</strong> ${msg.session.id}</p>
+                        <p><strong>State:</strong> <span class="${getStatusInfo(msg.session.state).class}" style="display:inline-block;width:8px;height:8px;border-radius:50%"></span> ${msg.session.state}</p>
+                        <p><strong>Prompt:</strong> ${msg.session.prompt}</p>
+                    `;
+                 }
+             }
+        } else if (msg.type === 'activitiesUpdate') {
+             // Check if this update belongs to the current session being viewed
+             // We need to match msg.sessionId with currentSessionId (which is name)
+             // We can look up the session in our sessions list
+             const session = sessions.find(s => s.id === msg.sessionId);
+             if (session && session.name === currentSessionId) {
+                 renderActivities(msg.activities);
+             }
         }
     };
 
@@ -328,6 +352,22 @@ function renderActivity(activity) {
     `;
 }
 
+function renderActivities(activities) {
+    const activitiesContainer = document.getElementById('activities-container');
+    if (activitiesContainer) {
+        activitiesContainer.innerHTML = '';
+        if (activities && activities.length > 0) {
+            activities.forEach(act => {
+                activitiesContainer.innerHTML += renderActivity(act);
+            });
+            // Scroll to bottom
+            activitiesContainer.scrollTop = activitiesContainer.scrollHeight;
+        } else {
+            activitiesContainer.innerHTML = '<p style="text-align:center;color:#666">No activities.</p>';
+        }
+    }
+}
+
 async function viewSession(sessionName) {
     currentSessionId = sessionName;
     renderSessions(); // Update active class in sidebar
@@ -350,19 +390,7 @@ async function viewSession(sessionName) {
         // Fetch activities
         try {
             const activitiesData = await apiCall(`${sessionName}/activities`);
-            const activitiesContainer = document.getElementById('activities-container');
-            if (activitiesContainer) {
-                activitiesContainer.innerHTML = '';
-                if (activitiesData.activities) {
-                    activitiesData.activities.forEach(act => {
-                        activitiesContainer.innerHTML += renderActivity(act);
-                    });
-                    // Scroll to bottom
-                    activitiesContainer.scrollTop = activitiesContainer.scrollHeight;
-                } else {
-                    activitiesContainer.innerHTML = '<p style="text-align:center;color:#666">No activities.</p>';
-                }
-            }
+            renderActivities(activitiesData.activities);
         } catch (e) {
              console.warn("Could not fetch activities", e);
         }
