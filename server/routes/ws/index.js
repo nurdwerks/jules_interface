@@ -10,9 +10,23 @@ export default async function (fastify, opts) {
     const socket = connection.socket || connection;
 
     if (socket) {
+        const sendInitialData = async () => {
+             try {
+                const sessions = await fastify.jules.listSessions();
+                const sourcesData = await fastify.jules.listSources();
+                socket.send(JSON.stringify({
+                    type: 'initialData',
+                    sessions,
+                    sources: sourcesData.sources || []
+                }));
+            } catch (err) {
+                fastify.log.error(err, 'Failed to send initial data');
+            }
+        };
+
         // Default to unauthenticated
         socket.authenticated = false;
-        socket.on('message', message => {
+        socket.on('message', async message => {
             try {
                 const data = JSON.parse(message);
 
@@ -26,6 +40,7 @@ export default async function (fastify, opts) {
                         AUTH_SESSIONS.set(sessionToken, true);
                         socket.authenticated = true;
                         socket.send(JSON.stringify({ type: 'authSuccess', sessionToken }));
+                        await sendInitialData();
                     } else {
                          socket.send(JSON.stringify({ type: 'authError', message: 'Invalid credentials' }));
                     }
@@ -35,6 +50,7 @@ export default async function (fastify, opts) {
                     if (AUTH_SESSIONS.has(token)) {
                         socket.authenticated = true;
                         socket.send(JSON.stringify({ type: 'authSuccess', sessionToken: token }));
+                        await sendInitialData();
                     } else {
                         socket.send(JSON.stringify({ type: 'authRequired' }));
                     }

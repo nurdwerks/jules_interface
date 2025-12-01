@@ -67,6 +67,20 @@ function setupWebsocket() {
                  if (currentSessionId && currentSessionId.endsWith('/' + message.sessionId)) {
                      viewSession(currentSessionId);
                  }
+            } else if (message.type === 'initialData') {
+                allSessions = message.sessions || [];
+                renderSessions();
+
+                const select = document.getElementById('source');
+                if (select && message.sources) {
+                     select.innerHTML = '<option value="" disabled selected>Select a source...</option>';
+                     message.sources.forEach(src => {
+                        const opt = document.createElement('option');
+                        opt.value = src.name;
+                        opt.textContent = src.displayName || src.name;
+                        select.appendChild(opt);
+                    });
+                }
             }
         } catch (e) {
             console.error('Error handling WS message', e);
