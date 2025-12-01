@@ -207,6 +207,36 @@ export default fp(async (fastify, opts) => {
 
   // Polling
   if (!isMock) {
+      const syncSessions = async () => {
+          try {
+              fastify.log.info("Syncing sessions from Jules API...");
+              const response = await fetch('https://jules.googleapis.com/v1alpha/sessions', {
+                  headers: {
+                      'X-Goog-Api-Key': apiKey
+                  }
+              });
+
+              if (!response.ok) {
+                  const err = await response.json().catch(() => ({}));
+                  fastify.log.error(`Failed to sync sessions: ${err.error?.message || response.statusText}`);
+                  return;
+              }
+
+              const data = await response.json();
+              const sessions = data.sessions || [];
+
+              for (const session of sessions) {
+                  if (session.id) {
+                      await fastify.db.put(`session:${session.id}`, session);
+                  }
+              }
+              fastify.log.info(`Synced ${sessions.length} sessions from Jules API.`);
+
+          } catch (err) {
+              fastify.log.error(err, "Error syncing sessions");
+          }
+      };
+
       const runPoll = async () => {
           try {
             const now = Date.now();
@@ -279,7 +309,8 @@ export default fp(async (fastify, opts) => {
           }
           setTimeout(runPoll, 1000);
       };
-      fastify.ready(() => {
+      fastify.ready(async () => {
+          await syncSessions();
           runPoll();
       });
   }
