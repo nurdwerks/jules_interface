@@ -83,7 +83,8 @@ setupWebsocket();
 
 // Login Logic
 const loginModal = document.getElementById('login-modal');
-const apiKeyInput = document.getElementById('api-key-input');
+const usernameInput = document.getElementById('username-input');
+const passwordInput = document.getElementById('password-input');
 const loginBtn = document.getElementById('login-btn');
 
 function showLoginModal() {
@@ -97,20 +98,16 @@ function hideLoginModal() {
 
 if (loginBtn) {
     loginBtn.addEventListener('click', async () => {
-        const apiKey = apiKeyInput.value.trim();
-        if (!apiKey) return;
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
 
-        const nonce = Math.random().toString(36).substring(2) + Date.now().toString(36);
-        const timestamp = Date.now();
-        const payload = `${nonce}:${timestamp}`;
+        if (!username || !password) return;
 
         try {
-            const signature = await hmacSha256(apiKey, payload);
             ws.send(JSON.stringify({
                 type: 'auth',
-                nonce,
-                timestamp,
-                signature
+                username,
+                password
             }));
         } catch (e) {
             console.error("Auth error", e);
@@ -118,19 +115,6 @@ if (loginBtn) {
             document.getElementById('login-error').style.display = 'block';
         }
     });
-}
-
-async function hmacSha256(key, message) {
-    const enc = new TextEncoder();
-    const keyData = enc.encode(key);
-    const cryptoKey = await crypto.subtle.importKey(
-        "raw", keyData, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
-    );
-    const signature = await crypto.subtle.sign(
-        "HMAC", cryptoKey, enc.encode(message)
-    );
-    return Array.from(new Uint8Array(signature))
-        .map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 // API Helper

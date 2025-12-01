@@ -155,10 +155,14 @@
     <div id="login-modal" class="modal hidden">
         <div class="modal-content">
             <h2>Authentication Required</h2>
-            <p>Please enter your API Key to connect.</p>
+            <p>Please enter your credentials to connect.</p>
             <div class="form-group">
-                <label for="api-key-input">API Key</label>
-                <input type="password" id="api-key-input" placeholder="Enter API Key">
+                <label for="username-input">Username</label>
+                <input type="text" id="username-input" placeholder="Enter Username">
+            </div>
+            <div class="form-group">
+                <label for="password-input">Password</label>
+                <input type="password" id="password-input" placeholder="Enter Password">
             </div>
             <button id="login-btn" class="primary-btn" style="width: 100%;">Login</button>
             <div id="login-error" style="color: #f48771; margin-top: 10px; display: none;"></div>
