@@ -1,0 +1,25 @@
+{
+  "name": "sessions/1303471872611325556",
+  "title": "Real-time Session & Activity Updates",
+  "createTime": "2025-12-01T21:25:49.468714506Z",
+  "updateTime": "2025-12-01T21:40:55.587037Z",
+  "state": "COMPLETED",
+  "sourceContext": {
+    "source": "sources/github/nurdwerks/jules_interface",
+    "githubRepoContext": {
+      "startingBranch": "main"
+    }
+  },
+  "prompt": "Implement intermittent and manual refresh of sessions. When sessions are updated on the back end update the front end through websockets. Also implement intermittent update and manual update of session activity. ",
+  "url": "https://jules.google.com/session/1303471872611325556",
+  "id": "1303471872611325556",
+  "outputs": [
+    {
+      "pullRequest": {
+        "url": "https://github.com/nurdwerks/jules_interface/pull/19",
+        "title": "Implement intermittent and manual refresh of sessions",
+        "description": "This change implements the intermittent and manual refresh of sessions and their activities.\n\nThe backend already supported polling (`runPoll` in `server/plugins/jules.js`) and manual refresh (`/sessions/:id/refresh`). The key work was enabling the frontend to correctly react to the WebSocket messages broadcasted by the backend.\n\nChanges:\n1.  **Frontend WebSocket Handling**: Updated `client/app.js` to handle `sessionUpdate` and `activitiesUpdate` messages.\n    *   `sessionUpdate`: Updates the specific session in the list and refreshes the details view if it's the current session.\n    *   `activitiesUpdate`: Refreshes the activities list if the update belongs to the current session.\n2.  **Code Refactoring**: Extracted `renderActivities` logic in `client/app.js` to avoid code duplication and allow reuse between `viewSession` and WebSocket updates.\n\nVerification:\n- A Playwright script `verification/verify_session_update.py` was created to simulate the user flow: login, create session, and trigger manual refresh.\n- The script successfully verified that the manual refresh button can be clicked and the UI remains stable (mock mode was used to avoid API quotas).\n- Backend logic for polling and broadcasting was reviewed and confirmed to be present.\n\n\n---\n*PR created automatically by Jules for task [1303471872611325556](https://jules.google.com/task/1303471872611325556) started by @nurdwerks*"
+      }
+    }
+  ]
+}

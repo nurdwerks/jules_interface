@@ -1,0 +1,2299 @@
+{
+  "sources": [
+    {
+      "name": "sources/github/nurdwerks/360Controller",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "360Controller",
+        "defaultBranch": {
+          "displayName": "master"
+        },
+        "branches": [
+          {
+            "displayName": "master"
+          },
+          {
+            "displayName": "snowLeopardCompat"
+          },
+          {
+            "displayName": "yosCodeSign"
+          },
+          {
+            "displayName": "enable-frontend-coverage"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/360Controller"
+    },
+    {
+      "name": "sources/github/nurdwerks/CefSharp",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "CefSharp",
+        "defaultBranch": {
+          "displayName": "master"
+        },
+        "branches": [
+          {
+            "displayName": "master"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/CefSharp"
+    },
+    {
+      "name": "sources/github/nurdwerks/FlutterChatLLM",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "FlutterChatLLM",
+        "isPrivate": true,
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/FlutterChatLLM"
+    },
+    {
+      "name": "sources/github/nurdwerks/LLMService",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "LLMService",
+        "isPrivate": true,
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/LLMService"
+    },
+    {
+      "name": "sources/github/nurdwerks/ModAssistant",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "ModAssistant",
+        "defaultBranch": {
+          "displayName": "master"
+        },
+        "branches": [
+          {
+            "displayName": "fast-detect"
+          },
+          {
+            "displayName": "master"
+          },
+          {
+            "displayName": "pats"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/ModAssistant"
+    },
+    {
+      "name": "sources/github/nurdwerks/OrcaSlicer",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "OrcaSlicer",
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/OrcaSlicer"
+    },
+    {
+      "name": "sources/github/nurdwerks/Raspie-MongoDB",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "Raspie-MongoDB",
+        "defaultBranch": {
+          "displayName": "master"
+        },
+        "branches": [
+          {
+            "displayName": "master_old"
+          },
+          {
+            "displayName": "master"
+          },
+          {
+            "displayName": "smshell"
+          },
+          {
+            "displayName": "v0.8"
+          },
+          {
+            "displayName": "v0.9"
+          },
+          {
+            "displayName": "v1.0"
+          },
+          {
+            "displayName": "v1.2"
+          },
+          {
+            "displayName": "v1.4"
+          },
+          {
+            "displayName": "v1.6"
+          },
+          {
+            "displayName": "v1.8"
+          },
+          {
+            "displayName": "zookeeper"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/Raspie-MongoDB"
+    },
+    {
+      "name": "sources/github/nurdwerks/ScrollFix",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "ScrollFix",
+        "defaultBranch": {
+          "displayName": "master"
+        },
+        "branches": [
+          {
+            "displayName": "gh-pages"
+          },
+          {
+            "displayName": "master"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/ScrollFix"
+    },
+    {
+      "name": "sources/github/nurdwerks/TurboStarfish",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "TurboStarfish",
+        "isPrivate": true,
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/TurboStarfish"
+    },
+    {
+      "name": "sources/github/nurdwerks/Vicuna",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "Vicuna",
+        "isPrivate": true,
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/Vicuna"
+    },
+    {
+      "name": "sources/github/nurdwerks/a-counter",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "a-counter",
+        "isPrivate": true,
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          },
+          {
+            "displayName": "feat/remove-prisma"
+          },
+          {
+            "displayName": "feature-flutter-to-html5-conversion"
+          },
+          {
+            "displayName": "revert-2-feature-flutter-to-html5-conversion"
+          },
+          {
+            "displayName": "feature-date-picker-mock-mode"
+          },
+          {
+            "displayName": "migrate-pikaday-to-flatpickr"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/a-counter"
+    },
+    {
+      "name": "sources/github/nurdwerks/android_device_asus_ME173X",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "android_device_asus_ME173X",
+        "defaultBranch": {
+          "displayName": "cm-10.1"
+        },
+        "branches": [
+          {
+            "displayName": "cm-10.1"
+          },
+          {
+            "displayName": "master"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/android_device_asus_ME173X"
+    },
+    {
+      "name": "sources/github/nurdwerks/apache-websocket",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "apache-websocket",
+        "defaultBranch": {
+          "displayName": "master"
+        },
+        "branches": [
+          {
+            "displayName": "master"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/apache-websocket"
+    },
+    {
+      "name": "sources/github/nurdwerks/blackswan",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "blackswan",
+        "isPrivate": true,
+        "defaultBranch": {
+          "displayName": "master"
+        },
+        "branches": [
+          {
+            "displayName": "master"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/blackswan"
+    },
+    {
+      "name": "sources/github/nurdwerks/curly-waffle",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "curly-waffle",
+        "isPrivate": true,
+        "branches": [
+          {
+            "displayName": "main"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/curly-waffle"
+    },
+    {
+      "name": "sources/github/nurdwerks/ejdb",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "ejdb",
+        "defaultBranch": {
+          "displayName": "master"
+        },
+        "branches": [
+          {
+            "displayName": "cursors"
+          },
+          {
+            "displayName": "gh-pages"
+          },
+          {
+            "displayName": "gh-pages-custom"
+          },
+          {
+            "displayName": "hdb2"
+          },
+          {
+            "displayName": "joins"
+          },
+          {
+            "displayName": "jsonexport"
+          },
+          {
+            "displayName": "master"
+          },
+          {
+            "displayName": "rubejdb"
+          },
+          {
+            "displayName": "testing"
+          },
+          {
+            "displayName": "ticket6"
+          },
+          {
+            "displayName": "ticket10"
+          },
+          {
+            "displayName": "ticket21"
+          },
+          {
+            "displayName": "ticket43"
+          },
+          {
+            "displayName": "ticket47"
+          },
+          {
+            "displayName": "ticket49"
+          },
+          {
+            "displayName": "ticket51"
+          },
+          {
+            "displayName": "winport"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/ejdb"
+    },
+    {
+      "name": "sources/github/nurdwerks/fantastic-octo-carnival",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "fantastic-octo-carnival",
+        "branches": [
+          {
+            "displayName": "main"
+          },
+          {
+            "displayName": "shakespearean-insult-generator"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/fantastic-octo-carnival"
+    },
+    {
+      "name": "sources/github/nurdwerks/fictional-happiness",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "fictional-happiness",
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          },
+          {
+            "displayName": "collab-plugin-final"
+          },
+          {
+            "displayName": "feature/collab-chat-participants"
+          },
+          {
+            "displayName": "feature/user-mentions-and-code-references"
+          },
+          {
+            "displayName": "feature/collab-enhancements"
+          },
+          {
+            "displayName": "jules/docs-and-config-exposure"
+          },
+          {
+            "displayName": "feature/host-approval-and-cleanup"
+          },
+          {
+            "displayName": "feature/collaboration-improvements"
+          },
+          {
+            "displayName": "style-webview-vscode"
+          },
+          {
+            "displayName": "add-release-workflow"
+          },
+          {
+            "displayName": "docs-howto-release"
+          },
+          {
+            "displayName": "release-automation"
+          },
+          {
+            "displayName": "release-0.0.2-fix"
+          },
+          {
+            "displayName": "release-branch-automation"
+          },
+          {
+            "displayName": "release/v0.0.2"
+          },
+          {
+            "displayName": "release/v0.0.3"
+          },
+          {
+            "displayName": "feature/unique-user-id-display"
+          },
+          {
+            "displayName": "feature/server-output-logging"
+          },
+          {
+            "displayName": "release/v0.0.4"
+          },
+          {
+            "displayName": "feature/persist-state-and-notifications"
+          },
+          {
+            "displayName": "release/v0.0.5"
+          },
+          {
+            "displayName": "fix-webview-persistence"
+          },
+          {
+            "displayName": "release/v0.0.6"
+          },
+          {
+            "displayName": "immediate-server-start-host"
+          },
+          {
+            "displayName": "release/v0.0.7"
+          },
+          {
+            "displayName": "feature/rest-api-server-start"
+          },
+          {
+            "displayName": "feature/server-close-endpoint"
+          },
+          {
+            "displayName": "bugfix/fix-ot-delete-index"
+          },
+          {
+            "displayName": "feature/sync-tabs-and-cursor-nav"
+          },
+          {
+            "displayName": "release/v0.0.8"
+          },
+          {
+            "displayName": "feat/server-logging-and-webview-identity"
+          },
+          {
+            "displayName": "release/v0.0.9"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/fictional-happiness"
+    },
+    {
+      "name": "sources/github/nurdwerks/friendly-broccoli",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "friendly-broccoli",
+        "isPrivate": true,
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          },
+          {
+            "displayName": "feat/fastify-leveldb-app"
+          },
+          {
+            "displayName": "feat/totp-auth"
+          },
+          {
+            "displayName": "feat/replace-jest-with-node-test"
+          },
+          {
+            "displayName": "feat/implement-eslint"
+          },
+          {
+            "displayName": "feat/frontend-auth-flow"
+          },
+          {
+            "displayName": "feature/game-lobby"
+          },
+          {
+            "displayName": "feat/github-webhook-shutdown"
+          },
+          {
+            "displayName": "feat/keep-alive-script"
+          },
+          {
+            "displayName": "feat/add-swagger-docs"
+          },
+          {
+            "displayName": "add-single-player-chess"
+          },
+          {
+            "displayName": "feat/ai-chess-game"
+          },
+          {
+            "displayName": "refactor-chess-backend"
+          },
+          {
+            "displayName": "feature/display-pgn"
+          },
+          {
+            "displayName": "fix-snapback-logic"
+          },
+          {
+            "displayName": "feat/pgn-move-list"
+          },
+          {
+            "displayName": "feature/webhook-event-handlers"
+          },
+          {
+            "displayName": "feat/board-evaluation"
+          },
+          {
+            "displayName": "feat/add-pst-evaluation"
+          },
+          {
+            "displayName": "fix-chess-page-layout-and-errors"
+          },
+          {
+            "displayName": "fix-game-endpoint"
+          },
+          {
+            "displayName": "feature/chess-evaluation-improvements"
+          },
+          {
+            "displayName": "feat/tapered-evaluation"
+          },
+          {
+            "displayName": "refactor-evaluation-phase"
+          },
+          {
+            "displayName": "feat/async-chess-ai"
+          },
+          {
+            "displayName": "fix/build-and-test-errors"
+          },
+          {
+            "displayName": "feature/syzygy-integration"
+          },
+          {
+            "displayName": "feature/opening-book"
+          },
+          {
+            "displayName": "feat/chess-layout-redesign"
+          },
+          {
+            "displayName": "feat/consistent-lobby-layout"
+          },
+          {
+            "displayName": "feature/ai-evaluation-enhancements"
+          },
+          {
+            "displayName": "feat-pgn-analysis"
+          },
+          {
+            "displayName": "feat/tempo-bonus-evaluation"
+          },
+          {
+            "displayName": "docs-comprehensive-documentation"
+          },
+          {
+            "displayName": "feat/username-normalization"
+          },
+          {
+            "displayName": "feat/evaluation-enhancement-suggestions"
+          },
+          {
+            "displayName": "fix-fastify-reply-sent-error"
+          },
+          {
+            "displayName": "feat/non-blocking-ai"
+          },
+          {
+            "displayName": "feature/advanced-evaluations"
+          },
+          {
+            "displayName": "feature/enhanced-rook-evaluation"
+          },
+          {
+            "displayName": "add-comprehensive-documentation"
+          },
+          {
+            "displayName": "feature/websocket-analysis"
+          },
+          {
+            "displayName": "feature/time-controls"
+          },
+          {
+            "displayName": "feature/development-evaluation"
+          },
+          {
+            "displayName": "feature/add-more-feature-suggestions"
+          },
+          {
+            "displayName": "feature/ai-personalities"
+          },
+          {
+            "displayName": "fix-game-load-bug"
+          },
+          {
+            "displayName": "feature/ai-vs-ai-simulation"
+          },
+          {
+            "displayName": "feat-user-profile"
+          },
+          {
+            "displayName": "feature/pgn-import-export"
+          },
+          {
+            "displayName": "feature/accessibility-improvements"
+          },
+          {
+            "displayName": "feature/chess-puzzles"
+          },
+          {
+            "displayName": "feat/puzzle-themes"
+          },
+          {
+            "displayName": "feat/opening-book-explorer"
+          },
+          {
+            "displayName": "feature/post-game-analysis"
+          },
+          {
+            "displayName": "feature/add-playwright-tests"
+          },
+          {
+            "displayName": "remove-rate-limit-plugin"
+          },
+          {
+            "displayName": "feature/live-multiplayer"
+          },
+          {
+            "displayName": "fix/logout-and-css"
+          },
+          {
+            "displayName": "feat/complete-lobby"
+          },
+          {
+            "displayName": "feat/lobby-redesign"
+          },
+          {
+            "displayName": "feature/add-simulation-ui"
+          },
+          {
+            "displayName": "feat/simulation-persistence"
+          },
+          {
+            "displayName": "fix/simulation-websocket-connection"
+          },
+          {
+            "displayName": "fix-websocket-404"
+          },
+          {
+            "displayName": "feat/update-websocket-route"
+          },
+          {
+            "displayName": "Trace"
+          },
+          {
+            "displayName": "fix/mobility-en-passant-test"
+          },
+          {
+            "displayName": "jules-fix-auth-tests-3"
+          },
+          {
+            "displayName": "remove-helmet-dependency"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/friendly-broccoli"
+    },
+    {
+      "name": "sources/github/nurdwerks/fuzzy-funicular",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "fuzzy-funicular",
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          },
+          {
+            "displayName": "jules-vscode-plugin"
+          },
+          {
+            "displayName": "feat-add-api-key-error-handling"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/fuzzy-funicular"
+    },
+    {
+      "name": "sources/github/nurdwerks/grbl-Mega-5X",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "grbl-Mega-5X",
+        "defaultBranch": {
+          "displayName": "edge"
+        },
+        "branches": [
+          {
+            "displayName": "edge"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/grbl-Mega-5X"
+    },
+    {
+      "name": "sources/github/nurdwerks/jules-gemini3-chess-engine",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "jules-gemini3-chess-engine",
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          },
+          {
+            "displayName": "docs-update-readme"
+          },
+          {
+            "displayName": "initial-chess-engine-setup"
+          },
+          {
+            "displayName": "enhancement-plan-roadmap"
+          },
+          {
+            "displayName": "enhancement-plan-roadmap-v2"
+          },
+          {
+            "displayName": "enhancement-plan-epics"
+          },
+          {
+            "displayName": "enhancement-plan-sized-stories"
+          },
+          {
+            "displayName": "story-1.1-0x88-board"
+          },
+          {
+            "displayName": "feature/story-1.2-fen"
+          },
+          {
+            "displayName": "story-1.3a-sliding-pieces"
+          },
+          {
+            "displayName": "story-1.3b-stepping-pieces"
+          },
+          {
+            "displayName": "story-1.3c-special-moves"
+          },
+          {
+            "displayName": "story-1.4-legal-moves"
+          },
+          {
+            "displayName": "enhancement-stories-implementation"
+          },
+          {
+            "displayName": "enhancements-zobrist-tt-id"
+          },
+          {
+            "displayName": "feature/engine-enhancements"
+          },
+          {
+            "displayName": "enhancements-pawn-time-book"
+          },
+          {
+            "displayName": "enhancement-epic-5"
+          },
+          {
+            "displayName": "enhancement-stories-completion"
+          },
+          {
+            "displayName": "docs/new-roadmap-readme"
+          },
+          {
+            "displayName": "docs/expanded-roadmap-10-epics"
+          },
+          {
+            "displayName": "docs/reorder-roadmap-add-ac"
+          },
+          {
+            "displayName": "docs/cleanup-and-roadmap-update"
+          },
+          {
+            "displayName": "config/disable-ci"
+          },
+          {
+            "displayName": "option-reporting"
+          },
+          {
+            "displayName": "hash-resize"
+          },
+          {
+            "displayName": "feature/add-release-script"
+          },
+          {
+            "displayName": "uci-ponder"
+          },
+          {
+            "displayName": "uci-limit-strength"
+          },
+          {
+            "displayName": "strength-limiter-map"
+          },
+          {
+            "displayName": "error-injection"
+          },
+          {
+            "displayName": "time-override"
+          },
+          {
+            "displayName": "uci-enhancements"
+          },
+          {
+            "displayName": "epic-3-completion"
+          },
+          {
+            "displayName": "epics-4-5-6-implementation"
+          },
+          {
+            "displayName": "epic-4-5-6-fixes"
+          },
+          {
+            "displayName": "epics-7-8-9-implementation"
+          },
+          {
+            "displayName": "frontend-uci-client"
+          },
+          {
+            "displayName": "fix-bugs-and-ws"
+          },
+          {
+            "displayName": "websocket-uci-fixes"
+          },
+          {
+            "displayName": "feature/frontend-uci-options"
+          },
+          {
+            "displayName": "roadmap-update"
+          },
+          {
+            "displayName": "archive-epics"
+          },
+          {
+            "displayName": "update-nnue-status"
+          },
+          {
+            "displayName": "roadmap-expansion"
+          },
+          {
+            "displayName": "epic-11-aspiration-windows"
+          },
+          {
+            "displayName": "epic-12-see-integration"
+          },
+          {
+            "displayName": "implement-epics-13-20"
+          },
+          {
+            "displayName": "epics-26-29-implementation"
+          },
+          {
+            "displayName": "archive-epics-add-new-epics"
+          },
+          {
+            "displayName": "test/pawn-promotion"
+          },
+          {
+            "displayName": "tests/en-passant-check-fixes"
+          },
+          {
+            "displayName": "fix/syzygy-tests"
+          },
+          {
+            "displayName": "fix/move-generation-and-tests"
+          },
+          {
+            "displayName": "fix/test-suite-failures"
+          },
+          {
+            "displayName": "add-castling-tests"
+          },
+          {
+            "displayName": "feat/chess960-tests"
+          },
+          {
+            "displayName": "feature/expand-chess960-castling-tests"
+          },
+          {
+            "displayName": "feat-960"
+          },
+          {
+            "displayName": "feat/chess960-castling-tests"
+          },
+          {
+            "displayName": "tests/move-symmetry"
+          },
+          {
+            "displayName": "kiwipete-test-and-tracing"
+          },
+          {
+            "displayName": "emp-30"
+          },
+          {
+            "displayName": "feature/epics-30-32-33-34"
+          },
+          {
+            "displayName": "feat/epic-35-pvs-lmr-refinement"
+          },
+          {
+            "displayName": "feat/tuning-pipeline"
+          },
+          {
+            "displayName": "epic-37-mobility-evaluation"
+          },
+          {
+            "displayName": "docs/update-readme-epics"
+          },
+          {
+            "displayName": "feature/nnue-integration"
+          },
+          {
+            "displayName": "fix/nnue-chess960-castling"
+          },
+          {
+            "displayName": "feat/epic-38-passed-pawn-extensions"
+          },
+          {
+            "displayName": "epic-40-advanced-time-management"
+          },
+          {
+            "displayName": "epic-44-opening-book-enhancements"
+          },
+          {
+            "displayName": "feat/grafana-redesign"
+          },
+          {
+            "displayName": "docs/tuning-guide"
+          },
+          {
+            "displayName": "docs/add-epd-resources"
+          },
+          {
+            "displayName": "extract-epd-links"
+          },
+          {
+            "displayName": "extract-epd-links-and-tool"
+          },
+          {
+            "displayName": "feature/epd-tuning-process-one"
+          },
+          {
+            "displayName": "feature/tuning-incremental-processing"
+          },
+          {
+            "displayName": "feature/incremental-tuning-cleanup"
+          },
+          {
+            "displayName": "fix-tuning-and-fen"
+          },
+          {
+            "displayName": "tune-engine-index-1"
+          },
+          {
+            "displayName": "tools-sequential-tune"
+          },
+          {
+            "displayName": "fix-zobrist-error"
+          },
+          {
+            "displayName": "parallel-tuning"
+          },
+          {
+            "displayName": "tuning-docs-update"
+          },
+          {
+            "displayName": "feature/tune-nnue-flag"
+          },
+          {
+            "displayName": "fix-tuning-worker-hang"
+          },
+          {
+            "displayName": "fix-generate-moves-crash"
+          },
+          {
+            "displayName": "bugfix/board-desync-fix"
+          },
+          {
+            "displayName": "doc/refactor-bitboards"
+          },
+          {
+            "displayName": "refactor-bitboard-documentation"
+          },
+          {
+            "displayName": "refactor-remove-squares-array"
+          },
+          {
+            "displayName": "archive-epics-1"
+          },
+          {
+            "displayName": "polyglot-books"
+          },
+          {
+            "displayName": "update-readme-new-epics"
+          },
+          {
+            "displayName": "update-readme-more-epics"
+          },
+          {
+            "displayName": "epic45-multipv"
+          },
+          {
+            "displayName": "doc/tech-debt"
+          },
+          {
+            "displayName": "epic-46-probcut"
+          },
+          {
+            "displayName": "refactor-tech-debt"
+          },
+          {
+            "displayName": "refactor-search-and-board"
+          },
+          {
+            "displayName": "refactor-search-and-board-v2"
+          },
+          {
+            "displayName": "refactor-search-and-board-v3"
+          },
+          {
+            "displayName": "refactor-search-and-board-v4"
+          },
+          {
+            "displayName": "organize-tests"
+          },
+          {
+            "displayName": "cleanup-root-files"
+          },
+          {
+            "displayName": "cleanup-root-files-1"
+          },
+          {
+            "displayName": "fix-chess960-validation"
+          },
+          {
+            "displayName": "cleanup-code-tools"
+          },
+          {
+            "displayName": "fix-tests-and-cleanup"
+          },
+          {
+            "displayName": "fix-rook-mobility-test"
+          },
+          {
+            "displayName": "jules/run-tests-successfully"
+          },
+          {
+            "displayName": "jules/improve-coverage"
+          },
+          {
+            "displayName": "fix/time-override-test"
+          },
+          {
+            "displayName": "fix-tests"
+          },
+          {
+            "displayName": "epic-48-exact-node-search"
+          },
+          {
+            "displayName": "fix-test-params-loading"
+          },
+          {
+            "displayName": "epic-47-outpost-evaluation"
+          },
+          {
+            "displayName": "improve-coverage-archive-epics"
+          },
+          {
+            "displayName": "epic49-capture-history"
+          },
+          {
+            "displayName": "epics-50-51-52"
+          },
+          {
+            "displayName": "feature/eslint-config"
+          },
+          {
+            "displayName": "fix/test-worker-leak"
+          },
+          {
+            "displayName": "frontend-enhancement-epics"
+          },
+          {
+            "displayName": "fix-jest-open-handles"
+          },
+          {
+            "displayName": "frontend-wss-detection"
+          },
+          {
+            "displayName": "refactor-reduce-complexity"
+          },
+          {
+            "displayName": "complexity-refactor"
+          },
+          {
+            "displayName": "feature/add-svg-chess-pieces"
+          },
+          {
+            "displayName": "feature/frontend-svg-pieces"
+          },
+          {
+            "displayName": "frontend-update-timestamp"
+          },
+          {
+            "displayName": "fix-eslint-errors"
+          },
+          {
+            "displayName": "epic-53-perft-optimization"
+          },
+          {
+            "displayName": "history-malus"
+          },
+          {
+            "displayName": "epic-55-move-validation"
+          },
+          {
+            "displayName": "epic-56-search-visualization"
+          },
+          {
+            "displayName": "epic-57-history-panel"
+          },
+          {
+            "displayName": "epic-58-clock-ui"
+          },
+          {
+            "displayName": "epic-59-board-customization"
+          },
+          {
+            "displayName": "epic-60-fen-pgn"
+          },
+          {
+            "displayName": "epic-61-analysis-mode"
+          },
+          {
+            "displayName": "epic-62-sound-effects"
+          },
+          {
+            "displayName": "epic-63-responsive-layout"
+          },
+          {
+            "displayName": "epic-64-uci-options"
+          },
+          {
+            "displayName": "docs/future-enhancements"
+          },
+          {
+            "displayName": "docs/add-more-future-enhancements"
+          },
+          {
+            "displayName": "docs/add-even-more-future-enhancements"
+          },
+          {
+            "displayName": "docs/add-even-more-future-enhancements-round-3"
+          },
+          {
+            "displayName": "docs/add-future-enhancements-round-4-final"
+          },
+          {
+            "displayName": "docs/categorize-future-enhancements"
+          },
+          {
+            "displayName": "docs/refine-enhancement-categories"
+          },
+          {
+            "displayName": "docs/detailed-future-enhancements-backlog"
+          },
+          {
+            "displayName": "docs/complete-future-enhancements-backlog"
+          },
+          {
+            "displayName": "docs/renumber-epics-refactor-stories"
+          },
+          {
+            "displayName": "epic-65-board-customization"
+          },
+          {
+            "displayName": "epic-65-board-customization-1"
+          },
+          {
+            "displayName": "epic-66-ui-layout"
+          },
+          {
+            "displayName": "epic67-game-modes"
+          },
+          {
+            "displayName": "epic-67-game-modes"
+          },
+          {
+            "displayName": "epic-67-game-modes-1"
+          },
+          {
+            "displayName": "epic-68-training-puzzles"
+          },
+          {
+            "displayName": "epic-69-game-controls"
+          },
+          {
+            "displayName": "epic-70-time-controls"
+          },
+          {
+            "displayName": "epic-71-analysis-viz"
+          },
+          {
+            "displayName": "epic-71-drag-drop-threats"
+          },
+          {
+            "displayName": "epic72-stats-graph"
+          },
+          {
+            "displayName": "epic-71-analysis-visualizations"
+          },
+          {
+            "displayName": "config-eslint-update"
+          },
+          {
+            "displayName": "epic-72-statistics-graphs"
+          },
+          {
+            "displayName": "update-eslint-config"
+          },
+          {
+            "displayName": "code-cleanup-refactor"
+          },
+          {
+            "displayName": "refactor-client-and-cleanup"
+          },
+          {
+            "displayName": "refactor-client-js"
+          },
+          {
+            "displayName": "frontend-lint-fix"
+          },
+          {
+            "displayName": "lint-fixes-refactor"
+          },
+          {
+            "displayName": "frontend-coverage"
+          },
+          {
+            "displayName": "frontend-coverage-80"
+          },
+          {
+            "displayName": "frontend-coverage-increase"
+          },
+          {
+            "displayName": "frontend-coverage-boost"
+          },
+          {
+            "displayName": "frontend-coverage-boost-2"
+          },
+          {
+            "displayName": "fix/test-open-handles"
+          },
+          {
+            "displayName": "epic-73-config-tuning"
+          },
+          {
+            "displayName": "epic-73-config-tuning-final"
+          },
+          {
+            "displayName": "epic-73-config-tuning-final-v2"
+          },
+          {
+            "displayName": "playwright-test-suite"
+          },
+          {
+            "displayName": "add-e2e-tests"
+          },
+          {
+            "displayName": "report-e2e-tests"
+          },
+          {
+            "displayName": "playwright-coverage"
+          },
+          {
+            "displayName": "e2e-coverage-increase"
+          },
+          {
+            "displayName": "epic-74-data-management"
+          },
+          {
+            "displayName": "feature/board-editor"
+          },
+          {
+            "displayName": "epic-76-developer-tools"
+          },
+          {
+            "displayName": "feature/move-list-annotation"
+          },
+          {
+            "displayName": "epic-78-accessibility-audio"
+          },
+          {
+            "displayName": "feat/settings-management-and-cleanup"
+          },
+          {
+            "displayName": "epic-78-accessibility-audio-1"
+          },
+          {
+            "displayName": "epic-78-accessibility-audio-2"
+          },
+          {
+            "displayName": "epic-79-integration"
+          },
+          {
+            "displayName": "epic79-integration-misc"
+          },
+          {
+            "displayName": "epic-79-integration-polish"
+          },
+          {
+            "displayName": "epic-79-integration-1"
+          },
+          {
+            "displayName": "epic-79-integration-social"
+          },
+          {
+            "displayName": "chore/migrate-epics-to-issues"
+          },
+          {
+            "displayName": "chore/migrate-epics-to-issues-v2"
+          },
+          {
+            "displayName": "epic-79-integration-social-1"
+          },
+          {
+            "displayName": "epic-80-engine-integrations"
+          },
+          {
+            "displayName": "feature/auth-leveldb"
+          },
+          {
+            "displayName": "unify-coverage-reports"
+          },
+          {
+            "displayName": "refactor/fastify-rbac-admin"
+          },
+          {
+            "displayName": "refactor/fastify-rbac-admin-review"
+          },
+          {
+            "displayName": "docs-new-features-proposal"
+          },
+          {
+            "displayName": "feature-backlog-update"
+          },
+          {
+            "displayName": "docs-feature-details"
+          },
+          {
+            "displayName": "backend-coverage-e2e"
+          },
+          {
+            "displayName": "increase-e2e-coverage"
+          },
+          {
+            "displayName": "test/e2e-coverage-increase"
+          },
+          {
+            "displayName": "chore/coverage-report"
+          },
+          {
+            "displayName": "chore/coverage-report-fix"
+          },
+          {
+            "displayName": "increase-e2e-coverage-1"
+          },
+          {
+            "displayName": "e2e-castling-tests"
+          },
+          {
+            "displayName": "fix-auth-routes-fido2"
+          },
+          {
+            "displayName": "e2e-debug-features"
+          },
+          {
+            "displayName": "fido2-cross-platform"
+          },
+          {
+            "displayName": "fix-auth-serialization"
+          },
+          {
+            "displayName": "bugfix/auth-login-undefined-type"
+          },
+          {
+            "displayName": "disable-sound-fix-auth"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/jules-gemini3-chess-engine"
+    },
+    {
+      "name": "sources/github/nurdwerks/jules_interface",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "jules_interface",
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          },
+          {
+            "displayName": "feature/jules-api-interface"
+          },
+          {
+            "displayName": "feature/grafana-dark-theme-ui"
+          },
+          {
+            "displayName": "docs-features-proposal"
+          },
+          {
+            "displayName": "docs-agents-fastify"
+          },
+          {
+            "displayName": "backend-implementation"
+          },
+          {
+            "displayName": "vscode-ui-theme"
+          },
+          {
+            "displayName": "backend-host-frontend-filters"
+          },
+          {
+            "displayName": "feat/missing-features-implementation"
+          },
+          {
+            "displayName": "cleanup-missing-features"
+          },
+          {
+            "displayName": "update-agents-guidelines"
+          },
+          {
+            "displayName": "websocket-auth-hmac"
+          },
+          {
+            "displayName": "auth-env-vars"
+          },
+          {
+            "displayName": "fix-polling-crash"
+          },
+          {
+            "displayName": "ws-initial-data"
+          },
+          {
+            "displayName": "jules-sync-startup"
+          },
+          {
+            "displayName": "secure-auth-and-frontend-fixes"
+          },
+          {
+            "displayName": "feature/jules-interface-theme"
+          },
+          {
+            "displayName": "pagination-support"
+          },
+          {
+            "displayName": "frontend-session-filters"
+          },
+          {
+            "displayName": "jules-refresh-updates"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/jules_interface"
+    },
+    {
+      "name": "sources/github/nurdwerks/laughing-pancake",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "laughing-pancake",
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "refactor/move-project-to-root"
+          },
+          {
+            "displayName": "main"
+          },
+          {
+            "displayName": "feat/upgrade-dependencies"
+          },
+          {
+            "displayName": "feature/syzygy-tablebase"
+          },
+          {
+            "displayName": "feat/pgn-opening-book"
+          },
+          {
+            "displayName": "feat/material-value-evaluation"
+          },
+          {
+            "displayName": "feat/configurable-ai-framework"
+          },
+          {
+            "displayName": "feature/pvs-search"
+          },
+          {
+            "displayName": "feat/static-evaluation"
+          },
+          {
+            "displayName": "feature/static-eval-enhancements"
+          },
+          {
+            "displayName": "feature/implement-search-stubs"
+          },
+          {
+            "displayName": "docs/update-search-documentation"
+          },
+          {
+            "displayName": "feature/search-and-eval-expansion"
+          },
+          {
+            "displayName": "feature/parallel-search"
+          },
+          {
+            "displayName": "feature/enhance-evaluation-functions"
+          },
+          {
+            "displayName": "feature/enhance-static-evaluation"
+          },
+          {
+            "displayName": "feat/genetic-algorithm"
+          },
+          {
+            "displayName": "feature/resumable-evolve-mode"
+          },
+          {
+            "displayName": "feature/evolve-tui"
+          },
+          {
+            "displayName": "feat/enhance-evolve-tui"
+          },
+          {
+            "displayName": "feature/enhance-evolve-mode-ui"
+          },
+          {
+            "displayName": "feature/evolve-default-mode"
+          },
+          {
+            "displayName": "feat/move-tree-visualization"
+          },
+          {
+            "displayName": "feat/real-time-move-tree"
+          },
+          {
+            "displayName": "feature/evolve-search-depth"
+          },
+          {
+            "displayName": "feat/move-tree-indentation"
+          },
+          {
+            "displayName": "feat/tui-improvements"
+          },
+          {
+            "displayName": "refactor-evaluation-weights"
+          },
+          {
+            "displayName": "refactor/evolve-only-mode"
+          },
+          {
+            "displayName": "docs/update-readme-ai-details"
+          },
+          {
+            "displayName": "feature/log-move-and-depth"
+          },
+          {
+            "displayName": "tui-piece-colors"
+          },
+          {
+            "displayName": "feat/worker-list-ui"
+          },
+          {
+            "displayName": "fix-build-error"
+          },
+          {
+            "displayName": "feature/live-worker-updates"
+          },
+          {
+            "displayName": "feat/system-stats-tui"
+          },
+          {
+            "displayName": "feature/restrict-pvs-and-update-ui"
+          },
+          {
+            "displayName": "feat/limit-pvs-depth"
+          },
+          {
+            "displayName": "feature/mcts-evaluation-integration"
+          },
+          {
+            "displayName": "remove-worker-logs"
+          },
+          {
+            "displayName": "feature/in-memory-database"
+          },
+          {
+            "displayName": "feat/static-evaluation-cache"
+          },
+          {
+            "displayName": "fix/build-and-clippy-warnings"
+          },
+          {
+            "displayName": "draw-detection-and-scoring"
+          },
+          {
+            "displayName": "feature/60-move-draw-limit"
+          },
+          {
+            "displayName": "feat/player-cache"
+          },
+          {
+            "displayName": "feat/log-match-result"
+          },
+          {
+            "displayName": "feature/concurrent-evolution"
+          },
+          {
+            "displayName": "feature/multi-match-display"
+          },
+          {
+            "displayName": "feature/match-completion-logging"
+          },
+          {
+            "displayName": "feat/tui-layout-update"
+          },
+          {
+            "displayName": "fix/concurrent-match-closing"
+          },
+          {
+            "displayName": "feat/distinct-piece-symbols"
+          },
+          {
+            "displayName": "feat/concurrent-matches-cache-unloading"
+          },
+          {
+            "displayName": "feat/mcts-pruning"
+          },
+          {
+            "displayName": "feature/mcts-cache"
+          },
+          {
+            "displayName": "feature/pub-sub-decoupling"
+          },
+          {
+            "displayName": "fix/cargo-warnings"
+          },
+          {
+            "displayName": "feature/web-service-updates"
+          },
+          {
+            "displayName": "feat/web-ui"
+          },
+          {
+            "displayName": "fix-clippy-warnings"
+          },
+          {
+            "displayName": "feature/restart-application"
+          },
+          {
+            "displayName": "feat/ui-sorting-and-styling"
+          },
+          {
+            "displayName": "feature/run-script-updates"
+          },
+          {
+            "displayName": "feature/chessboard-ui-and-graceful-shutdown"
+          },
+          {
+            "displayName": "feature/ui-backend-updates"
+          },
+          {
+            "displayName": "feature/tui-frontend-updates"
+          },
+          {
+            "displayName": "feature/elo-tournament"
+          },
+          {
+            "displayName": "feature/match-completion-and-websocket-improvements"
+          },
+          {
+            "displayName": "feature/ui-logging-improvements"
+          },
+          {
+            "displayName": "tui-tweaks"
+          },
+          {
+            "displayName": "feature/html-progress-bar-rounds"
+          },
+          {
+            "displayName": "feature/four-repetition-draw-rule"
+          },
+          {
+            "displayName": "feature/swiss-tournament"
+          },
+          {
+            "displayName": "feature/update-chess-piece-styles"
+          },
+          {
+            "displayName": "feat/update-piece-symbols"
+          },
+          {
+            "displayName": "feat/abbreviate-html-view"
+          },
+          {
+            "displayName": "abbreviate-tui-displays"
+          },
+          {
+            "displayName": "feature/save-round-state"
+          },
+          {
+            "displayName": "fix-resume-tournament"
+          },
+          {
+            "displayName": "update-move-limit"
+          },
+          {
+            "displayName": "feat/reset-and-prune"
+          },
+          {
+            "displayName": "feature/elo-based-parent-selection"
+          },
+          {
+            "displayName": "code-cleanup-constants-and-warnings"
+          },
+          {
+            "displayName": "feature/randomize-initial-pairings"
+          },
+          {
+            "displayName": "feat/remove-cpu-core-usage"
+          },
+          {
+            "displayName": "feature/single-parent-cloning"
+          },
+          {
+            "displayName": "docs/readme-research-paper"
+          },
+          {
+            "displayName": "feature/aggressive-eval"
+          },
+          {
+            "displayName": "feature/clone-detection-and-move-limit-toggle"
+          },
+          {
+            "displayName": "feature/persist-elo-cache"
+          },
+          {
+            "displayName": "fix-deserialization-error"
+          },
+          {
+            "displayName": "ga-culling-and-contempt"
+          },
+          {
+            "displayName": "fix/tournament-state-bugs"
+          },
+          {
+            "displayName": "feat/generation-summary-logging"
+          },
+          {
+            "displayName": "feature/abbreviated-match-results"
+          },
+          {
+            "displayName": "format-match-log"
+          },
+          {
+            "displayName": "feature-weighted-parent-selection"
+          },
+          {
+            "displayName": "feature-generation-updates"
+          },
+          {
+            "displayName": "feature-history-and-sts"
+          },
+          {
+            "displayName": "feature-theming-and-bug-fixes"
+          },
+          {
+            "displayName": "fix-generation-page-styling"
+          },
+          {
+            "displayName": "feature-generation-list-page"
+          },
+          {
+            "displayName": "fix-sts-progress-updates"
+          },
+          {
+            "displayName": "feat-add-history-link"
+          },
+          {
+            "displayName": "feature-websocket-subscriber-pattern"
+          },
+          {
+            "displayName": "feature-sts-websocket-trigger"
+          },
+          {
+            "displayName": "feature-update-generation-table-style"
+          },
+          {
+            "displayName": "feature-headless-mode-and-sts-websockets"
+          },
+          {
+            "displayName": "docs-gui-description"
+          },
+          {
+            "displayName": "feature-sts-status-page"
+          },
+          {
+            "displayName": "feat-disable-tui-by-default"
+          },
+          {
+            "displayName": "fix-missing-imports"
+          },
+          {
+            "displayName": "fix-sts-hash-subscription"
+          },
+          {
+            "displayName": "feature-individual-sts-subscription"
+          },
+          {
+            "displayName": "refactor-quit-functionality"
+          },
+          {
+            "displayName": "feat-delete-sts-results-on-reset"
+          },
+          {
+            "displayName": "feat-unified-worker-queue"
+          },
+          {
+            "displayName": "fix-cargo-clippy-warnings"
+          },
+          {
+            "displayName": "deprecate-tui-limit-matches"
+          },
+          {
+            "displayName": "feature-sts-load-and-layout-changes"
+          },
+          {
+            "displayName": "feature-single-thread-search"
+          },
+          {
+            "displayName": "feature-update-concurrent-matches"
+          },
+          {
+            "displayName": "feature-sts-selection"
+          },
+          {
+            "displayName": "feat-sts-leaderboard"
+          },
+          {
+            "displayName": "remove-websocket-rate-limiting"
+          },
+          {
+            "displayName": "fix-hang-and-warnings"
+          },
+          {
+            "displayName": "feat-real-time-sts-leaderboard"
+          },
+          {
+            "displayName": "batched-websocket-updates"
+          },
+          {
+            "displayName": "feat-alternating-selection-algorithm"
+          },
+          {
+            "displayName": "ui-refactor-generation-and-history"
+          },
+          {
+            "displayName": "feat-graceful-shutdown-and-verbose-reset"
+          },
+          {
+            "displayName": "feature-hard-quit"
+          },
+          {
+            "displayName": "sts-perf-async-channel"
+          },
+          {
+            "displayName": "feature-history-page-live-status"
+          },
+          {
+            "displayName": "fix-clippy-warning"
+          },
+          {
+            "displayName": "feat-frontend-sts-display-fix"
+          },
+          {
+            "displayName": "feature-sts-generation-api"
+          },
+          {
+            "displayName": "feature-sts-history-and-mock-server"
+          },
+          {
+            "displayName": "feature-manual-selection-mode"
+          },
+          {
+            "displayName": "fix-clippy-and-build-errors"
+          },
+          {
+            "displayName": "feat-update-pvs-lookahead-depth"
+          },
+          {
+            "displayName": "feature-limit-sts-workers"
+          },
+          {
+            "displayName": "feature-sts-global-lock"
+          },
+          {
+            "displayName": "refactor-sts-worker-loop"
+          },
+          {
+            "displayName": "fix-sts-threading"
+          },
+          {
+            "displayName": "feature-memory-optimization"
+          },
+          {
+            "displayName": "feature-sts-verbose-logging"
+          },
+          {
+            "displayName": "feature-sts-concurrency-and-verbosity"
+          },
+          {
+            "displayName": "refactor-cleanup-console-logs"
+          },
+          {
+            "displayName": "feature-mcts-integration"
+          },
+          {
+            "displayName": "fix-worker-panic-handling"
+          },
+          {
+            "displayName": "mcts-optimizations"
+          },
+          {
+            "displayName": "fix-mcts-termination"
+          },
+          {
+            "displayName": "fix-build-and-lint-errors"
+          },
+          {
+            "displayName": "mcts-logging"
+          },
+          {
+            "displayName": "feat-mcts-logging"
+          },
+          {
+            "displayName": "feature-remove-mcts-time-limit"
+          },
+          {
+            "displayName": "feature-mcts-verbose-logging"
+          },
+          {
+            "displayName": "sts-mcts-only"
+          },
+          {
+            "displayName": "feature-pvs-default"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/laughing-pancake"
+    },
+    {
+      "name": "sources/github/nurdwerks/nurdchess",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "nurdchess",
+        "isPrivate": true,
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          },
+          {
+            "displayName": "to-rust"
+          },
+          {
+            "displayName": "Rustify"
+          },
+          {
+            "displayName": "feat/add-tests-and-docs"
+          },
+          {
+            "displayName": "feat/tui-interface"
+          },
+          {
+            "displayName": "feat/board-display-and-reduce-logic"
+          },
+          {
+            "displayName": "remove-web-interface"
+          },
+          {
+            "displayName": "remove-web-interface-1"
+          },
+          {
+            "displayName": "feat/replace-chess-with-shakmaty"
+          },
+          {
+            "displayName": "Midreplace"
+          },
+          {
+            "displayName": "fix/compilation-shakmaty-migration"
+          },
+          {
+            "displayName": "fix-tui-controls-and-pieces"
+          },
+          {
+            "displayName": "feature/pagination-browse-mode"
+          },
+          {
+            "displayName": "test-statistics"
+          },
+          {
+            "displayName": "add-play-mode"
+          },
+          {
+            "displayName": "feature/play-mode-evaluation"
+          },
+          {
+            "displayName": "test-coverage-improvements"
+          },
+          {
+            "displayName": "increase-test-coverage"
+          },
+          {
+            "displayName": "increase-test-coverage-1"
+          },
+          {
+            "displayName": "feat/blinking-cursor"
+          },
+          {
+            "displayName": "fix-castling-panic"
+          },
+          {
+            "displayName": "test-evaluation-check-panic"
+          },
+          {
+            "displayName": "feature/move-list-selection"
+          },
+          {
+            "displayName": "feat/play-mode-history-undo"
+          },
+          {
+            "displayName": "feat/opening-book"
+          },
+          {
+            "displayName": "feat/syzygy-tablebase"
+          },
+          {
+            "displayName": "feat/syzygy-download-instructions"
+          },
+          {
+            "displayName": "feat/minimax-search"
+          },
+          {
+            "displayName": "feature/syzygy-minimax-pruning"
+          },
+          {
+            "displayName": "feat/interactive-analysis-enhancements"
+          },
+          {
+            "displayName": "feat/iterative-deepening-search"
+          },
+          {
+            "displayName": "feat/server-mode"
+          },
+          {
+            "displayName": "feat/web-interface"
+          },
+          {
+            "displayName": "fix/web-interface-moves"
+          },
+          {
+            "displayName": "feat/web-game-features"
+          },
+          {
+            "displayName": "expose-server"
+          },
+          {
+            "displayName": "feat/email-auth-with-username"
+          },
+          {
+            "displayName": "feat/replace-redis-with-sled"
+          },
+          {
+            "displayName": "feat/totp-auth"
+          },
+          {
+            "displayName": "feat/default-server-mode-and-logging"
+          },
+          {
+            "displayName": "feature/verbose-logging-and-relative-urls"
+          },
+          {
+            "displayName": "feat/qr-code-endpoint"
+          },
+          {
+            "displayName": "feature/websockets-and-cookies"
+          },
+          {
+            "displayName": "fix/remove-unused-code-and-fix-tests"
+          },
+          {
+            "displayName": "feature/tapered-evaluation"
+          },
+          {
+            "displayName": "feat/sp-mode"
+          },
+          {
+            "displayName": "feat/web-session-routing"
+          },
+          {
+            "displayName": "feat/piece-safety-evaluation"
+          },
+          {
+            "displayName": "feat/advanced-pawn-evaluation"
+          },
+          {
+            "displayName": "feat/complex-evaluation"
+          },
+          {
+            "displayName": "feat/enhance-board-evaluation"
+          },
+          {
+            "displayName": "feat/analysis-api"
+          },
+          {
+            "displayName": "add-run-latest-script"
+          },
+          {
+            "displayName": "feat/remove-tui"
+          },
+          {
+            "displayName": "Shutdown"
+          },
+          {
+            "displayName": "feat/graceful-shutdown"
+          },
+          {
+            "displayName": "fix-chessboard-ref-error"
+          },
+          {
+            "displayName": "feat/timeouts"
+          },
+          {
+            "displayName": "docs-enhance-readme"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/nurdchess"
+    },
+    {
+      "name": "sources/github/nurdwerks/rust-game-experiment",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "rust-game-experiment",
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/rust-game-experiment"
+    },
+    {
+      "name": "sources/github/nurdwerks/sshuttle",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "sshuttle",
+        "defaultBranch": {
+          "displayName": "master"
+        },
+        "branches": [
+          {
+            "displayName": "dist/macos"
+          },
+          {
+            "displayName": "master"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/sshuttle"
+    },
+    {
+      "name": "sources/github/nurdwerks/sturdy-system",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "sturdy-system",
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/sturdy-system"
+    },
+    {
+      "name": "sources/github/nurdwerks/unified_services",
+      "githubRepo": {
+        "owner": "nurdwerks",
+        "repo": "unified_services",
+        "isPrivate": true,
+        "defaultBranch": {
+          "displayName": "main"
+        },
+        "branches": [
+          {
+            "displayName": "main"
+          },
+          {
+            "displayName": "streaming-experiment"
+          },
+          {
+            "displayName": "update-chains"
+          }
+        ]
+      },
+      "id": "github/nurdwerks/unified_services"
+    }
+  ]
+}
