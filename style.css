@@ -1,0 +1,153 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.auth-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+main {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+nav {
+    margin-bottom: 2rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.view {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+/* Lists */
+.session-item {
+    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.session-item:last-child {
+    border-bottom: none;
+}
+
+.session-status {
+    font-size: 0.9em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    background: #eee;
+}
+
+/* Details */
+#session-info {
+    margin-bottom: 2rem;
+}
+
+.activity-item {
+    background: #f9f9f9;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #007bff;
+    display: flex;
+    gap: 1rem;
+}
+
+.activity-icon {
+    font-weight: bold;
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e9ecef;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.activity-content {
+    flex-grow: 1;
+}
+
+.activity-time {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 0.5rem;
+    text-align: right;
+}
+
+.actions {
+    margin-top: 2rem;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+}
+
+.action-group {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+#message-input {
+    flex-grow: 1;
+}
