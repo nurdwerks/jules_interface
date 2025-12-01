@@ -11,6 +11,32 @@ export default fp(async (fastify, opts) => {
       pollingState.set(sessionId, { nextPoll: Date.now(), interval: 5000 });
   };
 
+  const fetchAll = async (urlStr, apiKey, key) => {
+      let items = [];
+      let pageToken = null;
+      do {
+          const u = new URL(urlStr);
+          if (pageToken) {
+              u.searchParams.set('pageToken', pageToken);
+          }
+          const response = await fetch(u.toString(), {
+              headers: { 'X-Goog-Api-Key': apiKey }
+          });
+
+          if (!response.ok) {
+               const err = await response.json().catch(() => ({}));
+               throw new Error(err.error?.message || response.statusText);
+          }
+
+          const data = await response.json();
+          const batch = data[key] || [];
+          items = items.concat(batch);
+          pageToken = data.nextPageToken;
+      } while (pageToken);
+
+      return { [key]: items };
+  };
+
   const jules = {
     isMock,
     async listSources() {
@@ -22,16 +48,7 @@ export default fp(async (fastify, opts) => {
                 ]
             };
         } else {
-             const response = await fetch('https://jules.googleapis.com/v1alpha/sources', {
-                headers: {
-                    'X-Goog-Api-Key': apiKey
-                }
-            });
-            if (!response.ok) {
-                 const err = await response.json().catch(() => ({}));
-                 throw new Error(err.error?.message || 'API Error');
-            }
-            return await response.json();
+            return await fetchAll('https://jules.googleapis.com/v1alpha/sources', apiKey, 'sources');
         }
     },
 
@@ -188,14 +205,13 @@ export default fp(async (fastify, opts) => {
              }
 
              // Fetch Activities
-             const respActivities = await fetch(`https://jules.googleapis.com/v1alpha/${session.name}/activities`, {
-                  headers: { 'X-Goog-Api-Key': apiKey }
-             });
-             if(respActivities.ok) {
-                 const data = await respActivities.json();
+             try {
+                 const data = await fetchAll(`https://jules.googleapis.com/v1alpha/${session.name}/activities`, apiKey, 'activities');
                  const newActivities = data.activities || [];
                  await fastify.db.put(`activities:${session.id}`, newActivities);
                  fastify.wsBroadcast({ type: 'activitiesUpdate', sessionId: session.id, activities: newActivities });
+             } catch (e) {
+                 fastify.log.warn(`Failed to refresh activities for ${session.id}: ${e.message}`);
              }
 
              return newSessionData;
@@ -210,19 +226,7 @@ export default fp(async (fastify, opts) => {
       const syncSessions = async () => {
           try {
               fastify.log.info("Syncing sessions from Jules API...");
-              const response = await fetch('https://jules.googleapis.com/v1alpha/sessions', {
-                  headers: {
-                      'X-Goog-Api-Key': apiKey
-                  }
-              });
-
-              if (!response.ok) {
-                  const err = await response.json().catch(() => ({}));
-                  fastify.log.error(`Failed to sync sessions: ${err.error?.message || response.statusText}`);
-                  return;
-              }
-
-              const data = await response.json();
+              const data = await fetchAll('https://jules.googleapis.com/v1alpha/sessions', apiKey, 'sessions');
               const sessions = data.sessions || [];
 
               for (const session of sessions) {
@@ -277,19 +281,14 @@ export default fp(async (fastify, opts) => {
 
                     // Fetch Activities
                     try {
-                        const respActivities = await fetch(`https://jules.googleapis.com/v1alpha/${session.name}/activities`, {
-                             headers: { 'X-Goog-Api-Key': apiKey }
-                        });
-                        if(respActivities.ok) {
-                            const data = await respActivities.json();
-                            const newActivities = data.activities || [];
-                            const currentActivities = await fastify.db.get(`activities:${session.id}`).catch(() => []);
+                        const data = await fetchAll(`https://jules.googleapis.com/v1alpha/${session.name}/activities`, apiKey, 'activities');
+                        const newActivities = data.activities || [];
+                        const currentActivities = await fastify.db.get(`activities:${session.id}`).catch(() => []);
 
-                            if (JSON.stringify(newActivities) !== JSON.stringify(currentActivities)) {
-                                await fastify.db.put(`activities:${session.id}`, newActivities);
-                                fastify.wsBroadcast({ type: 'activitiesUpdate', sessionId: session.id, activities: newActivities });
-                                changed = true;
-                            }
+                        if (JSON.stringify(newActivities) !== JSON.stringify(currentActivities)) {
+                            await fastify.db.put(`activities:${session.id}`, newActivities);
+                            fastify.wsBroadcast({ type: 'activitiesUpdate', sessionId: session.id, activities: newActivities });
+                            changed = true;
                         }
                     } catch(e) {
                          fastify.log.error(`Polling activities ${session.id} failed: ${e.message}`);
