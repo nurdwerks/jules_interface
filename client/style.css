@@ -430,3 +430,12 @@ button {
         display: none;
     }
 }
+
+.toolbar-select {
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+}

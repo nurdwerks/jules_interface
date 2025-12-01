@@ -1,5 +1,6 @@
 // State
 let currentSessionId = null;
+let allSessions = [];
 
 // DOM Elements
 const views = {
@@ -9,12 +10,11 @@ const views = {
 };
 
 // API Configuration
-const BACKEND_HOST = window.location.hostname + ':3000';
+const BACKEND_HOST = window.location.host;
 const isSecure = window.location.protocol === 'https:';
-const httpProtocol = isSecure ? 'https:' : 'http:';
 const wsProtocol = isSecure ? 'wss:' : 'ws:';
 
-const API_BASE = `${httpProtocol}//${BACKEND_HOST}/sessions`;
+const API_BASE = '/sessions';
 const WS_URL = `${wsProtocol}//${BACKEND_HOST}/ws`;
 
 // Websocket Setup
@@ -103,31 +103,68 @@ function showView(viewName) {
 async function listSessions() {
     try {
         const data = await apiCall('sessions');
-        const container = document.getElementById('sessions-container');
-        container.innerHTML = '';
-
-        if (data.sessions && data.sessions.length > 0) {
-            data.sessions.forEach(session => {
-                const div = document.createElement('div');
-                div.className = 'session-item';
-                div.innerHTML = `
-                    <div>
-                        <strong>${session.name}</strong><br>
-                        <small>${session.prompt ? session.prompt.substring(0, 50) + (session.prompt.length > 50 ? '...' : '') : 'No prompt'}</small>
-                    </div>
-                    <div>
-                        <span class="session-status">${session.state || 'UNKNOWN'}</span>
-                        <button onclick="viewSession('${session.name}')">View</button>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        } else {
-            container.innerHTML = '<p>No sessions found.</p>';
-        }
-        showView('list');
+        allSessions = data.sessions || [];
+        renderSessions();
     } catch (err) {
         console.error(err);
+    }
+}
+
+function renderSessions() {
+    const container = document.getElementById('session-list-sidebar');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const filterStatus = document.getElementById('filter-status').value;
+    const sortOrder = document.getElementById('sort-order').value;
+
+    let filtered = allSessions.filter(session => {
+        if (filterStatus === 'ALL') return true;
+        return (session.state || 'UNKNOWN') === filterStatus;
+    });
+
+    filtered.sort((a, b) => {
+        if (sortOrder === 'newest') {
+            return new Date(b.createTime || 0) - new Date(a.createTime || 0);
+        } else if (sortOrder === 'oldest') {
+            return new Date(a.createTime || 0) - new Date(b.createTime || 0);
+        } else if (sortOrder === 'name_asc') {
+            return a.name.localeCompare(b.name);
+        } else if (sortOrder === 'name_desc') {
+            return b.name.localeCompare(a.name);
+        }
+        return 0;
+    });
+
+    if (filtered.length > 0) {
+        filtered.forEach(session => {
+            const div = document.createElement('div');
+            div.className = 'explorer-item';
+            if (currentSessionId === session.name) {
+                div.classList.add('active');
+            }
+            div.style.flexDirection = 'column';
+            div.style.alignItems = 'flex-start';
+            div.style.height = 'auto';
+            div.style.padding = '8px 20px';
+            div.style.borderBottom = '1px solid var(--border-color)';
+
+            const shortName = session.name.split('/').pop();
+            const displayName = session.prompt ? session.prompt.substring(0, 30) : shortName;
+            const dateStr = session.createTime ? new Date(session.createTime).toLocaleDateString() : '';
+
+            div.innerHTML = `
+                <div style="font-weight: bold; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${session.prompt || ''}">${displayName}</div>
+                <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 4px;">
+                     <span style="font-size: 0.75rem; opacity: 0.8; background-color: #444; padding: 1px 4px; border-radius: 2px;">${session.state || 'UNKNOWN'}</span>
+                     <span style="font-size: 0.7rem; opacity: 0.6;">${dateStr}</span>
+                </div>
+            `;
+            div.onclick = () => viewSession(session.name);
+            container.appendChild(div);
+        });
+    } else {
+        container.innerHTML = '<div class="explorer-item">No sessions</div>';
     }
 }
 
@@ -204,6 +241,7 @@ function renderActivity(activity) {
 
 async function viewSession(sessionName) {
     currentSessionId = sessionName;
+    renderSessions(); // Update active class in sidebar
     try {
         // Fetch session details
         const session = await apiCall(sessionName);
@@ -270,12 +308,16 @@ async function approvePlan() {
 }
 
 // Event Listeners
-document.getElementById('nav-list').addEventListener('click', listSessions);
 document.getElementById('nav-create').addEventListener('click', () => showView('create'));
 document.getElementById('create-session-form').addEventListener('submit', createSession);
-document.getElementById('back-to-list').addEventListener('click', listSessions);
+if (document.getElementById('back-to-list')) {
+    document.getElementById('back-to-list').addEventListener('click', () => showView('list'));
+}
 document.getElementById('send-message-btn').addEventListener('click', sendMessage);
 document.getElementById('approve-plan-btn').addEventListener('click', approvePlan);
+
+document.getElementById('filter-status').addEventListener('change', renderSessions);
+document.getElementById('sort-order').addEventListener('change', renderSessions);
 
 // Global
 window.viewSession = viewSession;
