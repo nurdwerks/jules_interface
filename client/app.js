@@ -132,9 +132,41 @@ function renderSessions() {
     if (!list) return;
     list.innerHTML = '';
 
-    // Sort / Filter logic here if needed
+    // Filter Logic
+    const filterSource = document.getElementById('filter-source');
+    const selectedSource = filterSource ? filterSource.value : 'ALL';
 
-    sessions.forEach(session => {
+    const filterRecent = document.getElementById('filter-recent');
+    const recentOnly = filterRecent ? filterRecent.checked : false;
+
+    // Filter and Sort
+    let displaySessions = sessions.filter(session => {
+        // Source Filter
+        if (selectedSource !== 'ALL') {
+            const sessionSource = session.sourceContext?.source;
+            if (sessionSource !== selectedSource) return false;
+        }
+
+        // Recent Filter (24h)
+        if (recentOnly) {
+             const updateTime = new Date(session.updateTime || session.createTime); // Fallback to createTime if updateTime missing
+             const now = new Date();
+             const diffMs = now - updateTime;
+             const diffHours = diffMs / (1000 * 60 * 60);
+             if (diffHours > 24) return false;
+        }
+
+        return true;
+    });
+
+    // Sort by updateTime (newest first)
+    displaySessions.sort((a, b) => {
+        const tA = new Date(a.updateTime || a.createTime).getTime();
+        const tB = new Date(b.updateTime || b.createTime).getTime();
+        return tB - tA;
+    });
+
+    displaySessions.forEach(session => {
         const div = document.createElement('div');
         div.className = 'session-item';
         if (currentSessionId === session.name) div.classList.add('active');
@@ -190,15 +222,34 @@ function loadSources() {
 }
 
 function populateSources() {
+    // Populate Create Form source
     const select = document.getElementById('source');
-    if(!select) return;
-    select.innerHTML = '';
-    sources.forEach(src => {
-        const opt = document.createElement('option');
-        opt.value = src.name;
-        opt.innerText = src.name;
-        select.appendChild(opt);
-    });
+    if(select) {
+        select.innerHTML = '';
+        sources.forEach(src => {
+            const opt = document.createElement('option');
+            opt.value = src.name;
+            opt.innerText = src.name;
+            select.appendChild(opt);
+        });
+    }
+
+    // Populate Filter Source
+    const filterSelect = document.getElementById('filter-source');
+    if(filterSelect) {
+        const currentVal = filterSelect.value;
+        filterSelect.innerHTML = '<option value="ALL">All Sources</option>';
+        sources.forEach(src => {
+            const opt = document.createElement('option');
+            opt.value = src.name;
+            opt.innerText = src.name;
+            filterSelect.appendChild(opt);
+        });
+        // Restore value if possible
+        if(currentVal && currentVal !== 'ALL' && sources.find(s => s.name === currentVal)) {
+            filterSelect.value = currentVal;
+        }
+    }
 }
 
 async function createSession(e) {
@@ -419,6 +470,11 @@ const filterStatus = document.getElementById('filter-status');
 if(filterStatus) filterStatus.addEventListener('change', renderSessions);
 const sortOrder = document.getElementById('sort-order');
 if(sortOrder) sortOrder.addEventListener('change', renderSessions);
+
+const filterSource = document.getElementById('filter-source');
+if(filterSource) filterSource.addEventListener('change', renderSessions);
+const filterRecent = document.getElementById('filter-recent');
+if(filterRecent) filterRecent.addEventListener('change', renderSessions);
 
 // Approve Plan Delegation
 const activitiesContainer = document.getElementById('activities-container');

@@ -28,10 +28,12 @@
                         <span>Recent sessions</span>
                         <span class="chevron">^</span>
                     </div>
-                    <!-- Hidden filters for functionality, could be styled as a popover later -->
-                    <div class="sidebar-controls" style="display: none;"> <!-- Keeping these for app.js to find, but hiding them or styling them later -->
-                         <select id="filter-status"><option value="ALL">All</option></select>
-                         <select id="sort-order"><option value="newest">Newest</option></select>
+                    <!-- Filters -->
+                    <div class="sidebar-controls">
+                         <select id="filter-source"><option value="ALL">All Sources</option></select>
+                         <label class="filter-label"><input type="checkbox" id="filter-recent" checked> Recent (<24h)</label>
+                         <!-- <select id="filter-status"><option value="ALL">All Status</option></select> -->
+                         <!-- <select id="sort-order"><option value="newest">Newest</option></select> -->
                     </div>
 
                     <div id="session-list-sidebar">
