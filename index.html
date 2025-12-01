@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jules API Interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Jules API Interface</h1>
+        <div class="auth-container">
+            <input type="password" id="apiKey" placeholder="Enter API Key / Bearer Token">
+            <label>
+                <input type="checkbox" id="mockMode" checked> Mock Mode
+            </label>
+        </div>
+    </header>
+
+    <main id="app">
+        <!-- Views will be injected here -->
+        <nav>
+            <button id="nav-list">List Sessions</button>
+            <button id="nav-create">Create Session</button>
+        </nav>
+
+        <section id="view-list" class="view">
+            <h2>Sessions</h2>
+            <div id="sessions-container"></div>
+        </section>
+
+        <section id="view-create" class="view hidden">
+            <h2>Create New Session</h2>
+            <form id="create-session-form">
+                <label for="prompt">Prompt:</label>
+                <textarea id="prompt" required></textarea>
+
+                <label for="source">Source (e.g., sources/my-source):</label>
+                <input type="text" id="source" required>
+
+                <label for="branch">Starting Branch:</label>
+                <input type="text" id="branch" value="main" required>
+
+                <button type="submit">Create</button>
+            </form>
+        </section>
+
+        <section id="view-details" class="view hidden">
+            <button id="back-to-list">← Back to List</button>
+            <h2 id="session-title">Session Details</h2>
+            <div id="session-info"></div>
+
+            <h3>Activities</h3>
+            <div id="activities-container"></div>
+
+            <div class="actions">
+                <h3>Actions</h3>
+                <div class="action-group">
+                    <textarea id="message-input" placeholder="Type a message..."></textarea>
+                    <button id="send-message-btn">Send Message</button>
+                </div>
+                <div class="action-group">
+                    <button id="approve-plan-btn">Approve Plan</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

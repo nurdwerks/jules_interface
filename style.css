@@ -1,0 +1,285 @@
+:root {
+    --bg-page: #111217;
+    --bg-panel: #181b1f;
+    --bg-header: #141619;
+    --bg-input: #0b0c0e;
+    --text-main: #ccccdc;
+    --text-heading: #ffffff;
+    --text-muted: #8e8e8e;
+    --border-color: #2c3235;
+    --primary-blue: #3274d9;
+    --primary-blue-hover: #5794f2;
+    --accent-orange: #ff9900;
+    --success-green: #299c46;
+    --danger-red: #f2495c;
+    --font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+}
+
+header {
+    background-color: var(--bg-header);
+    color: var(--text-heading);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-heading);
+    letter-spacing: 0.5px;
+}
+
+.auth-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+main {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+nav {
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Grafana-style Buttons */
+button {
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: var(--primary-blue);
+    color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    line-height: 1.5;
+}
+
+button:hover {
+    background-color: var(--primary-blue-hover);
+}
+
+button#back-to-list {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+button#back-to-list:hover {
+    background-color: var(--border-color);
+    color: var(--text-heading);
+}
+
+/* Panel Styling */
+.view {
+    background: var(--bg-panel);
+    padding: 1.5rem;
+    border-radius: 2px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+h2 {
+    color: var(--text-heading);
+    margin-top: 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    color: var(--text-heading);
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+label {
+    font-weight: 500;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+input, textarea {
+    padding: 8px 10px;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    color: var(--text-heading);
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+}
+
+/* Lists */
+#sessions-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.session-item {
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.1s;
+}
+
+.session-item:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.session-item:last-child {
+    border-bottom: none;
+}
+
+.session-item strong {
+    color: var(--primary-blue);
+    font-size: 1rem;
+}
+
+.session-item small {
+    color: var(--text-muted);
+}
+
+.session-status {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: var(--border-color);
+    color: var(--text-main);
+    margin-right: 10px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* Details */
+#session-info p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+#session-info strong {
+    color: var(--text-heading);
+    width: 80px;
+    display: inline-block;
+}
+
+/* Activities */
+.activity-item {
+    background: transparent;
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    gap: 1rem;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--border-color);
+    border-radius: 50%; /* Rounded for better look */
+    font-size: 0.75rem;
+    color: var(--text-heading);
+    font-weight: bold;
+}
+
+.activity-content {
+    flex-grow: 1;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.activity-content strong {
+    color: var(--accent-orange);
+}
+
+.activity-time {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    text-align: right;
+}
+
+.actions {
+    margin-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+.action-group {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+#message-input {
+    flex-grow: 1;
+    min-height: 40px;
+    resize: vertical;
+}
+
+/* Scrollbars for Webkit */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-page);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Specific Colors for Activities */
+/* We can target icon text logic from JS if we wanted, but CSS is fine */
