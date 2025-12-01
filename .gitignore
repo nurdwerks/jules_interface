@@ -1,0 +1,10 @@
+node_modules/
+.env
+*.log
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+verify.py
+*.png
+db/

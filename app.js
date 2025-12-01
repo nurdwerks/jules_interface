@@ -1,53 +1,6 @@
 // State
 let currentSessionId = null;
 
-// Mock Data
-const mockSessions = [
-    {
-        name: "sessions/mock-session-1",
-        id: "mock-session-1",
-        prompt: "Fix the bug in the login page",
-        state: "IN_PROGRESS",
-        createTime: "2023-10-27T10:00:00Z"
-    },
-    {
-        name: "sessions/mock-session-2",
-        id: "mock-session-2",
-        prompt: "Add a new feature to the dashboard",
-        state: "AWAITING_PLAN_APPROVAL",
-        createTime: "2023-10-28T14:30:00Z"
-    }
-];
-
-const mockActivities = {
-    "mock-session-1": [
-        {
-            name: "sessions/mock-session-1/activities/1",
-            agentMessaged: { agentMessage: "I have analyzed the code and found the issue." },
-            createTime: "2023-10-27T10:05:00Z"
-        },
-        {
-            name: "sessions/mock-session-1/activities/2",
-            planGenerated: {
-                plan: {
-                    steps: [
-                        { title: "Read login.js", description: "Read the file to understand the logic." },
-                        { title: "Fix typo", description: "Correct the typo in variable name." }
-                    ]
-                }
-            },
-            createTime: "2023-10-27T10:06:00Z"
-        }
-    ],
-    "mock-session-2": [
-        {
-            name: "sessions/mock-session-2/activities/1",
-            userMessaged: { userMessage: "Please add a chart to the dashboard." },
-            createTime: "2023-10-28T14:30:00Z"
-        }
-    ]
-};
-
 // DOM Elements
 const views = {
     list: document.getElementById('view-list'),
@@ -55,109 +8,90 @@ const views = {
     details: document.getElementById('view-details')
 };
 
-const apiKeyInput = document.getElementById('apiKey');
-const mockModeCheckbox = document.getElementById('mockMode');
+// API Configuration
+const BACKEND_HOST = window.location.hostname + ':3000';
+const isSecure = window.location.protocol === 'https:';
+const httpProtocol = isSecure ? 'https:' : 'http:';
+const wsProtocol = isSecure ? 'wss:' : 'ws:';
+
+const API_BASE = `${httpProtocol}//${BACKEND_HOST}/sessions`;
+const WS_URL = `${wsProtocol}//${BACKEND_HOST}/ws`;
+
+// Websocket Setup
+let ws;
+function setupWebsocket() {
+    ws = new WebSocket(WS_URL);
+
+    ws.onopen = () => {
+        console.log('Connected to WebSocket');
+    };
+
+    ws.onmessage = (event) => {
+        try {
+            const message = JSON.parse(event.data);
+            console.log('WS Message:', message);
+
+            if (message.type === 'sessionUpdate') {
+                if (!views.list.classList.contains('hidden')) {
+                    listSessions();
+                }
+                // Refresh details if viewing this session
+                if (currentSessionId === message.session.name) {
+                     viewSession(message.session.name);
+                }
+            } else if (message.type === 'activitiesUpdate') {
+                 // message.sessionId (e.g. 123)
+                 if (currentSessionId && currentSessionId.endsWith('/' + message.sessionId)) {
+                     viewSession(currentSessionId);
+                 }
+            }
+        } catch (e) {
+            console.error('Error handling WS message', e);
+        }
+    };
+
+    ws.onclose = () => {
+        console.log('WebSocket closed, retrying in 3s...');
+        setTimeout(setupWebsocket, 3000);
+    };
+}
+
+setupWebsocket();
 
 // API Helper
 async function apiCall(endpoint, method = 'GET', body = null) {
-    const isMock = mockModeCheckbox.checked;
+    let url = API_BASE;
+    let path = endpoint;
 
-    if (isMock) {
-        return handleMockApi(endpoint, method, body);
-    }
-
-    const apiKey = apiKeyInput.value.trim();
-    if (!apiKey) {
-        alert("Please enter an API Key or enable Mock Mode.");
-        throw new Error("No API Key");
-    }
-
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-    };
-
-    let url = `https://jules.googleapis.com/v1alpha/${endpoint}`;
-
-    // Check if the key looks like an API key (starts with AIza...)
-    if (apiKey.startsWith('AIza')) {
-       url += (url.includes('?') ? '&' : '?') + `key=${apiKey}`;
-       delete headers['Authorization'];
+    if (path === 'sessions') {
+        // base
+    } else if (path.startsWith('sessions/')) {
+        path = path.replace('sessions/', '');
+        path = path.replace(':sendMessage', '/sendMessage');
+        path = path.replace(':approvePlan', '/approvePlan');
+        url += '/' + path;
     }
 
     const options = {
         method,
-        headers,
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: body ? JSON.stringify(body) : null
     };
 
     try {
         const response = await fetch(url, options);
         if (!response.ok) {
-            const error = await response.json();
+            const error = await response.json().catch(() => ({}));
             throw new Error(error.error?.message || 'API Error');
         }
-        // Handle empty responses (like from sendMessage or approvePlan)
         const text = await response.text();
         return text ? JSON.parse(text) : {};
     } catch (err) {
         alert(`Error: ${err.message}`);
         throw err;
     }
-}
-
-function handleMockApi(endpoint, method, body) {
-    console.log(`Mock API Call: ${method} ${endpoint}`, body);
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (endpoint === 'sessions' && method === 'GET') {
-                resolve({ sessions: mockSessions });
-            } else if (endpoint === 'sessions' && method === 'POST') {
-                const newSession = {
-                    name: `sessions/mock-session-${Date.now()}`,
-                    id: `mock-session-${Date.now()}`,
-                    prompt: body.prompt,
-                    state: "QUEUED",
-                    createTime: new Date().toISOString()
-                };
-                mockSessions.push(newSession);
-                // Also initialize empty activities for this new session
-                mockActivities[newSession.id] = [];
-                resolve(newSession);
-            } else if (endpoint.match(/^sessions\/.*\/activities$/) && method === 'GET') {
-                const sessionId = endpoint.split('/')[1];
-                // In real API, endpoint is sessions/{session_id}/activities
-                // For mock, we map session ID (e.g. mock-session-1) to activities
-                // But endpoint passed here is like "sessions/mock-session-1/activities"
-                // So splitting by '/' gives ["sessions", "mock-session-1", "activities"]
-                const realSessionId = endpoint.split('/')[1];
-                resolve({ activities: mockActivities[realSessionId] || [] });
-            } else if (endpoint.match(/^sessions\/.*$/) && method === 'GET') {
-                 const sessionName = endpoint;
-                 const session = mockSessions.find(s => s.name === sessionName);
-                 resolve(session);
-            } else if (endpoint.endsWith(':sendMessage')) {
-                // Mock adding the message to activities
-                const sessionName = endpoint.split(':')[0];
-                const sessionId = sessionName.split('/')[1];
-                if (mockActivities[sessionId]) {
-                    mockActivities[sessionId].push({
-                        name: `${sessionName}/activities/${Date.now()}`,
-                        userMessaged: { userMessage: body.prompt },
-                        createTime: new Date().toISOString()
-                    });
-                }
-                resolve({});
-            } else if (endpoint.endsWith(':approvePlan')) {
-                const sessionName = endpoint.split(':')[0];
-                const session = mockSessions.find(s => s.name === sessionName);
-                if (session) session.state = "IN_PROGRESS";
-                resolve({});
-            } else {
-                reject(new Error("Mock endpoint not implemented"));
-            }
-        }, 300);
-    });
 }
 
 // UI Functions
@@ -316,10 +250,8 @@ async function sendMessage() {
     if (!prompt) return;
 
     try {
-        // Update: Documentation says request body should be { "prompt": string }
         await apiCall(`${currentSessionId}:sendMessage`, 'POST', { prompt });
         input.value = '';
-        // Refresh view to see new message
         viewSession(currentSessionId);
     } catch (err) {
         console.error(err);
@@ -346,7 +278,7 @@ document.getElementById('send-message-btn').addEventListener('click', sendMessag
 document.getElementById('approve-plan-btn').addEventListener('click', approvePlan);
 
 // Global
-window.viewSession = viewSession; // Make available for inline onclick
+window.viewSession = viewSession;
 
 // Initial Load
 listSessions();
