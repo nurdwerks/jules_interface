@@ -65,10 +65,13 @@ async function apiCall(endpoint, method = 'GET', body = null) {
 
     if (path === 'sessions') {
         // base
+    } else if (path === 'sources') {
+        url = '/sources';
     } else if (path.startsWith('sessions/')) {
         path = path.replace('sessions/', '');
         path = path.replace(':sendMessage', '/sendMessage');
         path = path.replace(':approvePlan', '/approvePlan');
+        path = path.replace(':refresh', '/refresh');
         url += '/' + path;
     }
 
@@ -165,6 +168,25 @@ function renderSessions() {
         });
     } else {
         container.innerHTML = '<div class="explorer-item">No sessions</div>';
+    }
+}
+
+async function loadSources() {
+    try {
+        const data = await apiCall('sources');
+        const select = document.getElementById('source');
+        if (!select) return;
+        select.innerHTML = '<option value="" disabled selected>Select a source...</option>';
+        if (data.sources) {
+            data.sources.forEach(src => {
+                const opt = document.createElement('option');
+                opt.value = src.name;
+                opt.textContent = src.displayName || src.name;
+                select.appendChild(opt);
+            });
+        }
+    } catch (e) {
+        console.error("Failed to load sources", e);
     }
 }
 
@@ -307,14 +329,35 @@ async function approvePlan() {
     }
 }
 
+async function refreshSession() {
+    if (!currentSessionId) return;
+    const btn = document.getElementById('refresh-session-btn');
+    const originalText = btn.textContent;
+    btn.textContent = 'Refreshing...';
+    btn.disabled = true;
+
+    try {
+        await apiCall(`${currentSessionId}:refresh`, 'POST', {});
+    } catch (err) {
+        console.error(err);
+    } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+    }
+}
+
 // Event Listeners
-document.getElementById('nav-create').addEventListener('click', () => showView('create'));
+document.getElementById('nav-create').addEventListener('click', () => {
+    showView('create');
+    loadSources();
+});
 document.getElementById('create-session-form').addEventListener('submit', createSession);
 if (document.getElementById('back-to-list')) {
     document.getElementById('back-to-list').addEventListener('click', () => showView('list'));
 }
 document.getElementById('send-message-btn').addEventListener('click', sendMessage);
 document.getElementById('approve-plan-btn').addEventListener('click', approvePlan);
+document.getElementById('refresh-session-btn').addEventListener('click', refreshSession);
 
 document.getElementById('filter-status').addEventListener('change', renderSessions);
 document.getElementById('sort-order').addEventListener('change', renderSessions);

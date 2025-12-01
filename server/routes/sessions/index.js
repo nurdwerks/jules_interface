@@ -33,4 +33,9 @@ export default async function (fastify, opts) {
      const { id } = req.params;
      return await fastify.jules.approvePlan(id);
   });
+
+  fastify.post('/:id/refresh', async (req, reply) => {
+     const { id } = req.params;
+     return await fastify.jules.refreshSession(id);
+  });
 }

@@ -7,7 +7,9 @@ test('End to End Flow', async ({ page }) => {
   // Create Session
   await page.click('#nav-create');
   await page.fill('#prompt', 'E2E Test Session');
-  await page.fill('#source', 'sources/e2e');
+  // Wait for sources to load (option with value to be present)
+  await page.waitForSelector('#source option[value="sources/github/example/repo"]', { state: 'attached' });
+  await page.selectOption('#source', 'sources/github/example/repo');
   await page.click('button[type="submit"]');
 
   // Wait for alert (browser dialog) - Playwright automatically dismisses dialogs but we might want to verify

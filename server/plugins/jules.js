@@ -6,8 +6,35 @@ export default fp(async (fastify, opts) => {
 
   fastify.log.info(`Jules Service initializing. Mock Mode: ${isMock}`);
 
+  const pollingState = new Map();
+  const resetPolling = (sessionId) => {
+      pollingState.set(sessionId, { nextPoll: Date.now(), interval: 5000 });
+  };
+
   const jules = {
     isMock,
+    async listSources() {
+        if (isMock) {
+            return {
+                sources: [
+                    { name: 'sources/github/nurdwerks/jules_interface', displayName: 'Jules Interface' },
+                    { name: 'sources/github/example/repo', displayName: 'Example Repo' }
+                ]
+            };
+        } else {
+             const response = await fetch('https://jules.googleapis.com/v1alpha/sources', {
+                headers: {
+                    'X-Goog-Api-Key': apiKey
+                }
+            });
+            if (!response.ok) {
+                 const err = await response.json().catch(() => ({}));
+                 throw new Error(err.error?.message || 'API Error');
+            }
+            return await response.json();
+        }
+    },
+
     async listSessions() {
         const sessions = [];
         for await (const [key, value] of fastify.db.iterator()) {
@@ -60,6 +87,7 @@ export default fp(async (fastify, opts) => {
             // Store
             await fastify.db.put(`session:${data.id}`, data);
             fastify.wsBroadcast({ type: 'sessionUpdate', session: data });
+            resetPolling(data.id);
             return data;
         }
     },
@@ -87,6 +115,7 @@ export default fp(async (fastify, opts) => {
             fastify.wsBroadcast({ type: 'activitiesUpdate', sessionId, activities });
             return {};
         } else {
+             resetPolling(sessionId);
              const session = await this.getSession(sessionId);
              if(!session) throw new Error("Session not found");
 
@@ -115,6 +144,7 @@ export default fp(async (fastify, opts) => {
              fastify.wsBroadcast({ type: 'sessionUpdate', session: session });
             return {};
         } else {
+             resetPolling(sessionId);
              const session = await this.getSession(sessionId);
              if(!session) throw new Error("Session not found");
 
@@ -133,6 +163,43 @@ export default fp(async (fastify, opts) => {
             }
             return await response.json().catch(() => ({}));
         }
+    },
+
+    async refreshSession(sessionId) {
+        if (isMock) {
+            const session = await this.getSession(sessionId);
+            // Simulate an update in mock mode if needed, for now just broadcast
+            fastify.wsBroadcast({ type: 'sessionUpdate', session: session });
+            return session;
+        } else {
+             resetPolling(sessionId);
+             const session = await this.getSession(sessionId);
+             if(!session) throw new Error("Session not found");
+
+             // Fetch Session
+             const respSession = await fetch(`https://jules.googleapis.com/v1alpha/${session.name}`, {
+                  headers: { 'X-Goog-Api-Key': apiKey }
+             });
+             let newSessionData = session;
+             if(respSession.ok) {
+                 newSessionData = await respSession.json();
+                 await fastify.db.put(`session:${newSessionData.id}`, newSessionData);
+                 fastify.wsBroadcast({ type: 'sessionUpdate', session: newSessionData });
+             }
+
+             // Fetch Activities
+             const respActivities = await fetch(`https://jules.googleapis.com/v1alpha/${session.name}/activities`, {
+                  headers: { 'X-Goog-Api-Key': apiKey }
+             });
+             if(respActivities.ok) {
+                 const data = await respActivities.json();
+                 const newActivities = data.activities || [];
+                 await fastify.db.put(`activities:${session.id}`, newActivities);
+                 fastify.wsBroadcast({ type: 'activitiesUpdate', sessionId: session.id, activities: newActivities });
+             }
+
+             return newSessionData;
+        }
     }
   };
 
@@ -140,9 +207,9 @@ export default fp(async (fastify, opts) => {
 
   // Polling
   if (!isMock) {
-      // Run every 5 seconds
-      setInterval(async () => {
+      const runPoll = async () => {
           try {
+            const now = Date.now();
             const keys = [];
             for await (const key of fastify.db.keys()) {
                 if (key.startsWith('session:')) keys.push(key);
@@ -150,48 +217,68 @@ export default fp(async (fastify, opts) => {
 
             for (const key of keys) {
                 const session = await fastify.db.get(key);
+                const sessionId = session.id;
 
-                // Fetch Session
-                try {
-                    const respSession = await fetch(`https://jules.googleapis.com/v1alpha/${session.name}`, {
-                         headers: { 'X-Goog-Api-Key': apiKey }
-                    });
-                    if(respSession.ok) {
-                        const newSessionData = await respSession.json();
-                        // Only update if changed, to avoid db writes
-                        // For simplicity, we compare stringified
-                        // Note: timestamp updates might cause noise, but acceptable
-                        if (JSON.stringify(session) !== JSON.stringify(newSessionData)) {
-                            await fastify.db.put(key, newSessionData);
-                            fastify.wsBroadcast({ type: 'sessionUpdate', session: newSessionData });
-                        }
-                    }
-                } catch(e) {
-                    fastify.log.error(`Polling session ${session.id} failed: ${e.message}`);
+                let state = pollingState.get(sessionId);
+                if (!state) {
+                    state = { nextPoll: now, interval: 5000 };
+                    pollingState.set(sessionId, state);
                 }
 
-                // Fetch Activities
-                try {
-                    const respActivities = await fetch(`https://jules.googleapis.com/v1alpha/${session.name}/activities`, {
-                         headers: { 'X-Goog-Api-Key': apiKey }
-                    });
-                    if(respActivities.ok) {
-                        const data = await respActivities.json();
-                        const newActivities = data.activities || [];
-                        const currentActivities = await fastify.db.get(`activities:${session.id}`).catch(() => []);
+                if (now >= state.nextPoll) {
+                    let changed = false;
 
-                        if (JSON.stringify(newActivities) !== JSON.stringify(currentActivities)) {
-                            await fastify.db.put(`activities:${session.id}`, newActivities);
-                            fastify.wsBroadcast({ type: 'activitiesUpdate', sessionId: session.id, activities: newActivities });
+                    // Fetch Session
+                    try {
+                        const respSession = await fetch(`https://jules.googleapis.com/v1alpha/${session.name}`, {
+                             headers: { 'X-Goog-Api-Key': apiKey }
+                        });
+                        if(respSession.ok) {
+                            const newSessionData = await respSession.json();
+                            if (JSON.stringify(session) !== JSON.stringify(newSessionData)) {
+                                await fastify.db.put(key, newSessionData);
+                                fastify.wsBroadcast({ type: 'sessionUpdate', session: newSessionData });
+                                changed = true;
+                            }
                         }
+                    } catch(e) {
+                        fastify.log.error(`Polling session ${session.id} failed: ${e.message}`);
                     }
-                } catch(e) {
-                     fastify.log.error(`Polling activities ${session.id} failed: ${e.message}`);
+
+                    // Fetch Activities
+                    try {
+                        const respActivities = await fetch(`https://jules.googleapis.com/v1alpha/${session.name}/activities`, {
+                             headers: { 'X-Goog-Api-Key': apiKey }
+                        });
+                        if(respActivities.ok) {
+                            const data = await respActivities.json();
+                            const newActivities = data.activities || [];
+                            const currentActivities = await fastify.db.get(`activities:${session.id}`).catch(() => []);
+
+                            if (JSON.stringify(newActivities) !== JSON.stringify(currentActivities)) {
+                                await fastify.db.put(`activities:${session.id}`, newActivities);
+                                fastify.wsBroadcast({ type: 'activitiesUpdate', sessionId: session.id, activities: newActivities });
+                                changed = true;
+                            }
+                        }
+                    } catch(e) {
+                         fastify.log.error(`Polling activities ${session.id} failed: ${e.message}`);
+                    }
+
+                    if (changed) {
+                        state.interval = 5000;
+                    } else {
+                        state.interval = Math.min(state.interval * 1.5, 60000);
+                    }
+                    state.nextPoll = now + state.interval;
+                    pollingState.set(sessionId, state);
                 }
             }
           } catch(err) {
               fastify.log.error(err, "Polling cycle error");
           }
-      }, 5000);
+          setTimeout(runPoll, 1000);
+      };
+      runPoll();
   }
 });
