@@ -279,6 +279,8 @@ export default fp(async (fastify, opts) => {
           }
           setTimeout(runPoll, 1000);
       };
-      runPoll();
+      fastify.ready(() => {
+          runPoll();
+      });
   }
 });
