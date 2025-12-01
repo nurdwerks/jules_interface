@@ -3,135 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jules API Interface</title>
+    <title>Jules Interface</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome for icons could be good, but I'll stick to text/unicode to avoid external deps if possible, or maybe basic SVGs -->
+    <!-- Using a simple font stack that mimics the look -->
 </head>
 <body>
     <div id="app-shell">
-        <aside id="activity-bar">
-            <div class="activity-icon active" title="Explorer">
-                <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 1h11a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 .5-.5zm11 14V2H10v3.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V2H2.5v13h11zm-4-13.5V5h3V1.5h-3z"/></svg>
-            </div>
-            <div class="activity-icon" title="Search">
-                 <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.68 11.74a6 6 0 0 1-7.922-8.98 6 6 0 0 1 8.98 7.92l3.134 3.134a.75.75 0 1 1-1.06 1.06l-3.133-3.134zm-7.922-7.92a4.5 4.5 0 1 1 6.364 6.364 4.5 4.5 0 0 1-6.364-6.364z"/></svg>
-            </div>
-        </aside>
-
         <aside id="sidebar">
-            <div class="sidebar-title">
-                <span>EXPLORER</span>
-                <span class="sidebar-actions">...</span>
+            <div class="sidebar-top">
+                <div class="sidebar-header">
+                    <span class="logo-text">jules</span>
+                    <button class="sidebar-toggle" title="Toggle Sidebar">◫</button>
+                </div>
+                <div class="sidebar-search">
+                    <input type="text" placeholder="Search for repo or sessions">
+                    <span class="search-icon">🔍</span>
+                </div>
             </div>
 
-            <div class="sidebar-section" style="display: flex; flex-direction: column; height: 100%;">
-                <div class="section-header expanded">
-                    <span class="codicon codicon-chevron-down">▼</span>
-                    <span>SESSIONS</span>
-                </div>
+            <div class="sidebar-content scrollable-content">
+                <!-- Recent Sessions -->
+                <div class="sidebar-section expanded">
+                    <div class="section-header">
+                        <span>Recent sessions</span>
+                        <span class="chevron">^</span>
+                    </div>
+                    <!-- Hidden filters for functionality, could be styled as a popover later -->
+                    <div class="sidebar-controls" style="display: none;"> <!-- Keeping these for app.js to find, but hiding them or styling them later -->
+                         <select id="filter-status"><option value="ALL">All</option></select>
+                         <select id="sort-order"><option value="newest">Newest</option></select>
+                    </div>
 
-                <div class="sidebar-controls" style="padding: 5px 10px; display: flex; flex-direction: column; gap: 5px; border-bottom: 1px solid var(--border-color);">
-                     <select id="filter-status" class="sidebar-select">
-                        <option value="ALL">All Status</option>
-                        <option value="QUEUED">Queued</option>
-                        <option value="IN_PROGRESS">In Progress</option>
-                        <option value="DONE">Done</option>
-                        <option value="FAILED">Failed</option>
-                     </select>
-                     <select id="sort-order" class="sidebar-select">
-                        <option value="newest">Newest</option>
-                        <option value="oldest">Oldest</option>
-                        <option value="name_asc">Name A-Z</option>
-                        <option value="name_desc">Name Z-A</option>
-                     </select>
-                </div>
+                    <div id="session-list-sidebar">
+                        <!-- Populated by app.js -->
+                    </div>
 
-                <div id="session-list-sidebar" class="scrollable-content" style="flex: 1; padding: 0; overflow-y: auto;"></div>
-
-                <div class="section-header">
-                    <span>ACTIONS</span>
-                </div>
-                <nav id="explorer-nav">
-                    <button id="nav-create" class="explorer-item">
-                        <span class="icon">+</span> Create Session
+                    <button id="nav-create" class="sidebar-action-btn">
+                        <span class="icon">+</span> View more / Create
                     </button>
-                </nav>
+                </div>
+
+                <!-- Codebases (Mock) -->
+                <div class="sidebar-section expanded">
+                    <div class="section-header">
+                        <span>Codebases</span>
+                        <span class="chevron">^</span>
+                    </div>
+                    <div class="sidebar-list">
+                        <div class="sidebar-item"><span class="repo-icon">GitHub</span> nurdwerks/a-counter</div>
+                        <div class="sidebar-item"><span class="repo-icon">GitHub</span> nurdwerks/curly-waffle</div>
+                        <div class="sidebar-item"><span class="repo-icon">GitHub</span> nurdwerks/jules_interface</div>
+                        <div class="sidebar-item"><span class="repo-icon">GitHub</span> nurdwerks/nurdchess</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="usage-limit">
+                    <div class="limit-bar">
+                         <div class="limit-fill" style="width: 31%;"></div>
+                    </div>
+                    <span class="limit-text">Daily session limit (31/100)</span>
+                </div>
+                <div class="footer-icons">
+                    <button class="icon-btn" title="Docs">📄 Docs</button>
+                    <button class="icon-btn" title="Discord">💬</button>
+                    <button class="icon-btn" title="X">𝕏</button>
+                </div>
             </div>
         </aside>
 
         <main id="editor-area">
-            <div class="tabs-container">
-                <div class="tab active">
-                    <span class="tab-icon">JS</span>
-                    <span class="tab-title">Jules Interface</span>
-                    <span class="tab-close">×</span>
-                </div>
-            </div>
-
+            <!-- Global Views Container -->
             <div class="content-container">
-                <!-- Views will be injected here -->
 
+                <!-- Placeholder for "List" view if needed, but sidebar acts as list.
+                     We keep #view-list for logic compatibility but can make it overlap or just show welcome.
+                -->
                 <section id="view-list" class="view">
-                    <div class="view-header">
-                        <h2>Welcome</h2>
-                    </div>
-                    <div class="scrollable-content" style="padding: 20px;">
-                        <p>Select a session from the sidebar to view details.</p>
+                    <div class="welcome-container">
+                        <h1>Welcome to Jules</h1>
+                        <p>Select a session to start.</p>
                     </div>
                 </section>
 
                 <section id="view-create" class="view hidden">
-                    <div class="view-header">
-                         <h2>Create New Session</h2>
-                    </div>
-                    <form id="create-session-form" class="scrollable-content">
-                        <div class="form-group">
+                    <div class="view-header"><h2>Create New Session</h2></div>
+                    <form id="create-session-form" class="scrollable-content container-centered">
+                         <div class="form-group">
                             <label for="prompt">Prompt</label>
                             <textarea id="prompt" required placeholder="Describe what you want to build..."></textarea>
                         </div>
-
                         <div class="form-group">
                             <label for="source">Source</label>
-                            <select id="source" required>
-                                <option value="" disabled selected>Select a source...</option>
-                            </select>
+                            <select id="source" required></select>
                         </div>
-
                         <div class="form-group">
                             <label for="branch">Starting Branch</label>
                             <input type="text" id="branch" value="main" required>
                         </div>
-
                         <button type="submit" class="primary-btn">Create Session</button>
+                        <button type="button" id="back-to-list" class="secondary-btn">Cancel</button>
                     </form>
                 </section>
 
                 <section id="view-details" class="view hidden">
-                    <div class="view-header" style="display: flex; align-items: center;">
-                        <button id="back-to-list" class="secondary-btn">← Back</button>
-                        <h2 id="session-title" style="flex: 1; margin-left: 10px;">Session Details</h2>
-                        <button id="refresh-session-btn" class="secondary-btn">Refresh</button>
-                    </div>
+                    <!-- Session Header -->
+                    <header class="session-header">
+                        <h2 id="session-title">Session Name</h2>
+                        <div class="header-actions">
+                             <button id="refresh-session-btn" class="icon-btn" title="Refresh">↻</button>
+                             <div class="header-tabs">
+                                 <button class="tab active">Session</button>
+                                 <button class="tab">PR</button>
+                             </div>
+                        </div>
+                    </header>
 
-                    <div class="split-view scrollable-content">
-                        <div class="panel-left">
-                            <div id="session-info" class="info-card"></div>
+                    <div class="split-view">
+                        <!-- Chat / Interaction Panel -->
+                        <div class="panel-chat">
+                            <div id="activities-container" class="scrollable-content">
+                                <!-- Chat bubbles go here -->
+                            </div>
 
-                            <h3>Actions</h3>
-                            <div class="actions">
-                                <div class="action-group">
-                                    <textarea id="message-input" placeholder="Type a message to the agent..."></textarea>
-                                    <button id="send-message-btn" class="primary-btn">Send Message</button>
+                            <div class="chat-input-area">
+                                <div class="input-wrapper">
+                                    <textarea id="message-input" placeholder="Talk to Jules"></textarea>
+                                    <button id="send-message-btn" class="send-btn">+</button>
                                 </div>
-                                <div class="action-group">
-                                    <button id="approve-plan-btn" class="success-btn">Approve Plan</button>
+                                <div class="chat-hint">
+                                    Jules can make mistakes so double-check it and use code with caution
                                 </div>
+                            </div>
+
+                            <!-- Hidden controls preserved for functionality if needed, or moved to UI -->
+                            <div class="actions hidden">
+                                <button id="approve-plan-btn">Approve Plan</button>
                             </div>
                         </div>
 
-                        <div class="panel-right">
-                             <h3>Activities</h3>
-                             <div id="activities-container"></div>
+                        <!-- Code / Info Panel -->
+                        <div class="panel-code">
+                            <div class="code-header">
+                                <div class="file-tabs">
+                                    <div class="file-tab active">app.js</div>
+                                    <div class="file-tab">style.css</div>
+                                </div>
+                                <div class="code-actions">
+                                    <button class="secondary-btn">Download zip</button>
+                                </div>
+                            </div>
+                            <div class="code-content scrollable-content">
+                                <!-- Reusing session-info here for now -->
+                                <div id="session-info" class="info-card"></div>
+
+                                <div class="code-placeholder">
+                                    <pre style="color: #ccc;">
+// Select a file to view code
+// (Mock visualization)
+                                    </pre>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -139,33 +172,15 @@
         </main>
     </div>
 
-    <footer id="status-bar">
-        <div class="status-left">
-            <div class="status-item"><span class="icon">⑂</span> main*</div>
-            <div class="status-item"><span class="icon">⊗</span> 0 <span class="icon">⚠</span> 0</div>
-        </div>
-        <div class="status-right">
-            <div class="status-item">Ln 1, Col 1</div>
-            <div class="status-item">UTF-8</div>
-            <div class="status-item">JavaScript</div>
-            <div class="status-item notification-icon">bell</div>
-        </div>
-    </footer>
-
+    <!-- Modals -->
     <div id="login-modal" class="modal hidden">
         <div class="modal-content">
             <h2>Authentication Required</h2>
-            <p>Please enter your credentials to connect.</p>
-            <div class="form-group">
-                <label for="username-input">Username</label>
-                <input type="text" id="username-input" placeholder="Enter Username">
-            </div>
-            <div class="form-group">
-                <label for="password-input">Password</label>
-                <input type="password" id="password-input" placeholder="Enter Password">
-            </div>
-            <button id="login-btn" class="primary-btn" style="width: 100%;">Login</button>
-            <div id="login-error" style="color: #f48771; margin-top: 10px; display: none;"></div>
+            <p>Please enter your credentials.</p>
+            <input type="text" id="username-input" placeholder="Username" class="modal-input">
+            <input type="password" id="password-input" placeholder="Password" class="modal-input">
+            <button id="login-btn" class="primary-btn full-width">Login</button>
+            <div id="login-error" class="error-msg"></div>
         </div>
     </div>
 
