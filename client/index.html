@@ -152,6 +152,19 @@
         </div>
     </footer>
 
+    <div id="login-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Authentication Required</h2>
+            <p>Please enter your API Key to connect.</p>
+            <div class="form-group">
+                <label for="api-key-input">API Key</label>
+                <input type="password" id="api-key-input" placeholder="Enter API Key">
+            </div>
+            <button id="login-btn" class="primary-btn" style="width: 100%;">Login</button>
+            <div id="login-error" style="color: #f48771; margin-top: 10px; display: none;"></div>
+        </div>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>

@@ -4,6 +4,12 @@ test('End to End Flow', async ({ page }) => {
   // Go to app
   await page.goto('/');
 
+  // Handle Login Modal
+  await page.waitForSelector('#login-modal:not(.hidden)');
+  await page.fill('#api-key-input', 'default-secret-key');
+  await page.click('#login-btn');
+  await page.waitForSelector('#login-modal', { state: 'hidden' });
+
   // Create Session
   await page.click('#nav-create');
   await page.fill('#prompt', 'E2E Test Session');
