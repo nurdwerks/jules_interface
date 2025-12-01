@@ -19,11 +19,16 @@ const WS_URL = `${wsProtocol}//${BACKEND_HOST}/ws`;
 
 // Websocket Setup
 let ws;
+let sessionToken = localStorage.getItem('jules_session_token');
+
 function setupWebsocket() {
     ws = new WebSocket(WS_URL);
 
     ws.onopen = () => {
         console.log('Connected to WebSocket');
+        if (sessionToken) {
+            ws.send(JSON.stringify({ type: 'reconnect', token: sessionToken }));
+        }
     };
 
     ws.onmessage = (event) => {
@@ -31,7 +36,25 @@ function setupWebsocket() {
             const message = JSON.parse(event.data);
             console.log('WS Message:', message);
 
-            if (message.type === 'sessionUpdate') {
+            if (message.type === 'authRequired') {
+                showLoginModal();
+            } else if (message.type === 'authSuccess') {
+                sessionToken = message.sessionToken;
+                localStorage.setItem('jules_session_token', sessionToken);
+                hideLoginModal();
+                // Trigger an initial list refresh upon connection/auth
+                listSessions();
+            } else if (message.type === 'authError') {
+                const errorDiv = document.getElementById('login-error');
+                if (errorDiv) {
+                    errorDiv.textContent = message.message;
+                    errorDiv.style.display = 'block';
+                }
+                if (message.message === 'Invalid token' || message.message === 'Auth failed') {
+                     localStorage.removeItem('jules_session_token');
+                     sessionToken = null;
+                }
+            } else if (message.type === 'sessionUpdate') {
                 if (!views.list.classList.contains('hidden')) {
                     listSessions();
                 }
@@ -57,6 +80,58 @@ function setupWebsocket() {
 }
 
 setupWebsocket();
+
+// Login Logic
+const loginModal = document.getElementById('login-modal');
+const apiKeyInput = document.getElementById('api-key-input');
+const loginBtn = document.getElementById('login-btn');
+
+function showLoginModal() {
+    loginModal.classList.remove('hidden');
+}
+
+function hideLoginModal() {
+    loginModal.classList.add('hidden');
+    document.getElementById('login-error').style.display = 'none';
+}
+
+if (loginBtn) {
+    loginBtn.addEventListener('click', async () => {
+        const apiKey = apiKeyInput.value.trim();
+        if (!apiKey) return;
+
+        const nonce = Math.random().toString(36).substring(2) + Date.now().toString(36);
+        const timestamp = Date.now();
+        const payload = `${nonce}:${timestamp}`;
+
+        try {
+            const signature = await hmacSha256(apiKey, payload);
+            ws.send(JSON.stringify({
+                type: 'auth',
+                nonce,
+                timestamp,
+                signature
+            }));
+        } catch (e) {
+            console.error("Auth error", e);
+            document.getElementById('login-error').textContent = "Client side auth error";
+            document.getElementById('login-error').style.display = 'block';
+        }
+    });
+}
+
+async function hmacSha256(key, message) {
+    const enc = new TextEncoder();
+    const keyData = enc.encode(key);
+    const cryptoKey = await crypto.subtle.importKey(
+        "raw", keyData, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
+    );
+    const signature = await crypto.subtle.sign(
+        "HMAC", cryptoKey, enc.encode(message)
+    );
+    return Array.from(new Uint8Array(signature))
+        .map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
 // API Helper
 async function apiCall(endpoint, method = 'GET', body = null) {

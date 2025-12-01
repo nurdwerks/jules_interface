@@ -27,3 +27,7 @@ This document outlines the coding standards and architectural decisions for the 
   - Streaming log output or activity feeds.
 - Ensure connections are properly managed (handling disconnects, heartbeats).
 - Websocket logic should also be modularized within plugins/routes.
+- **Authentication**: Authentication over websockets requires a login prompt.
+
+## Frontend Guidelines
+- **User Interaction**: Do not use `alert()`, `confirm()`, or `prompt()` (or other native popups). Use custom Toasts and Modals instead for a consistent and non-blocking user experience.
