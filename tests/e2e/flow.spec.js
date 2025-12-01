@@ -1,0 +1,42 @@
+import { test, expect } from '@playwright/test';
+
+test('End to End Flow', async ({ page }) => {
+  // Go to app
+  await page.goto('/');
+
+  // Create Session
+  await page.click('#nav-create');
+  await page.fill('#prompt', 'E2E Test Session');
+  await page.fill('#source', 'sources/e2e');
+  await page.click('button[type="submit"]');
+
+  // Wait for alert (browser dialog) - Playwright automatically dismisses dialogs but we might want to verify
+  // app.js uses `alert('Session created!')`
+  // We should handle the dialog
+  // page.on('dialog', dialog => dialog.accept()); // Playwright defaults to dismiss, which is fine
+
+  // Verify created in list
+  // Note: listSessions is called after create.
+  await page.waitForSelector('text=E2E Test Session');
+
+  // View Session (first button)
+  await page.click('button:has-text("View")');
+
+  // Verify details
+  await page.waitForSelector('h2:has-text("sessions/mock-session-")');
+
+  // Send Message
+  await page.fill('#message-input', 'Hello Agent');
+  await page.click('#send-message-btn');
+
+  // Verify message appears
+  await page.waitForSelector('text=User: Hello Agent');
+
+  // Approve Plan
+  await page.click('#approve-plan-btn');
+
+  // Verify plan approved status (Mock: state becomes IN_PROGRESS)
+  // We need to reload or wait for update?
+  // approvePlan calls viewSession -> apiCall -> updates DOM.
+  await page.waitForSelector('p:has-text("State: IN_PROGRESS")');
+});
