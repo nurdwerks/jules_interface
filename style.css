@@ -1,153 +1,432 @@
+:root {
+    --bg-main: #1e1e1e;
+    --bg-sidebar: #252526;
+    --bg-activity-bar: #333333;
+    --bg-status-bar: #007acc;
+    --bg-status-bar-item: #007acc; /* hover? */
+    --bg-tab: #1e1e1e;
+    --bg-tab-inactive: #2d2d2d;
+    --bg-input: #3c3c3c;
+    --bg-button: #0e639c;
+    --bg-button-hover: #1177bb;
+    --bg-header: #2d2d2d; /* Or slightly lighter than main */
+
+    --text-primary: #cccccc;
+    --text-secondary: #aaaaaa;
+    --text-active: #ffffff;
+
+    --border-color: #3e3e42;
+    --focus-border: #007fd4;
+
+    --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: 'Consolas', 'Courier New', monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.auth-container {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-main {
-    padding: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-nav {
-    margin-bottom: 2rem;
-}
-
-button {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.view {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.hidden {
-    display: none;
-}
-
-/* Forms */
-form {
+    font-family: var(--font-family);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    overflow: hidden;
 }
 
-label {
+/* App Shell */
+#app-shell {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Activity Bar */
+#activity-bar {
+    width: 48px;
+    background-color: var(--bg-activity-bar);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.activity-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    border-left: 2px solid transparent;
+}
+
+.activity-icon:hover {
+    color: var(--text-active);
+}
+
+.activity-icon.active {
+    color: var(--text-active);
+    border-left-color: var(--text-active);
+}
+
+/* Sidebar */
+#sidebar {
+    width: 250px;
+    background-color: var(--bg-sidebar);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--bg-main); /* usually no border, just color diff */
+    flex-shrink: 0;
+}
+
+.sidebar-title {
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-header {
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-active);
+}
+
+.section-header:hover {
+    background-color: #2a2d2e;
+}
+
+#explorer-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.explorer-item {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    text-align: left;
+    padding: 5px 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.explorer-item:hover {
+    background-color: #2a2d2e;
+}
+
+.explorer-item.active {
+    background-color: #37373d;
+    color: var(--text-active);
+}
+
+.explorer-item .icon {
+    width: 16px;
+    text-align: center;
+}
+
+
+/* Editor Area */
+#editor-area {
+    flex: 1;
+    background-color: var(--bg-main);
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Important for flex child truncation */
+}
+
+.tabs-container {
+    background-color: var(--bg-tab-inactive); /* area behind tabs */
+    display: flex;
+    height: 35px;
+    overflow-x: auto;
+}
+
+.tab {
+    background-color: var(--bg-main); /* Active tab color */
+    color: var(--text-active);
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+    border-top: 1px solid #007acc; /* Active indicator top */
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.tab-icon {
+    color: #f1e05a; /* JS yellow */
+    font-family: var(--font-mono);
     font-weight: bold;
 }
 
+.tab-close {
+    margin-left: auto;
+    font-size: 1.1rem;
+    opacity: 0;
+}
+
+.tab:hover .tab-close {
+    opacity: 1;
+}
+
+.content-container {
+    padding: 0; /* VS Code editors have no padding usually, but views do */
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollable-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.view {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.view-header {
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.view-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
 input, textarea {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 100%;
+    background-color: var(--bg-input);
+    border: 1px solid var(--bg-input);
+    color: var(--text-primary);
+    padding: 6px;
+    font-family: var(--font-mono); /* Code font for inputs */
+    font-size: 0.9rem;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--focus-border);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
     font-family: inherit;
+    border: none;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+}
+
+.primary-btn {
+    background-color: var(--bg-button);
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: var(--bg-button-hover);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--text-primary);
+    padding-left: 0;
+}
+
+.secondary-btn:hover {
+    text-decoration: underline;
+}
+
+.success-btn {
+    background-color: #388a34;
+    color: white;
+}
+
+.success-btn:hover {
+    background-color: #4da649;
 }
 
 /* Lists */
 .session-item {
-    border-bottom: 1px solid #eee;
-    padding: 1rem 0;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.session-item:last-child {
-    border-bottom: none;
+.session-item:hover {
+    background-color: #2a2d2e;
 }
 
 .session-status {
-    font-size: 0.9em;
-    padding: 0.2rem 0.5rem;
-    border-radius: 12px;
-    background: #eee;
+    background-color: #444;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+    border-radius: 2px;
 }
 
-/* Details */
-#session-info {
-    margin-bottom: 2rem;
+/* Split View for Details */
+.split-view {
+    display: flex;
+    gap: 20px;
+}
+
+.panel-left {
+    flex: 1;
+    min-width: 300px;
+}
+
+.panel-right {
+    flex: 1;
+    min-width: 300px;
+    border-left: 1px solid var(--border-color);
+    padding-left: 20px;
+}
+
+.info-card {
+    background-color: #252526;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.info-card p {
+    margin: 5px 0;
 }
 
 .activity-item {
-    background: #f9f9f9;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-left: 4px solid #007bff;
-    display: flex;
-    gap: 1rem;
-}
-
-.activity-icon {
-    font-weight: bold;
-    min-width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #e9ecef;
-    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #252526;
+    border-left: 3px solid #007acc;
     font-size: 0.9rem;
-    color: #555;
-}
-
-.activity-content {
-    flex-grow: 1;
 }
 
 .activity-time {
     font-size: 0.8rem;
-    color: #888;
-    margin-top: 0.5rem;
+    color: #666;
+    margin-top: 5px;
     text-align: right;
 }
 
 .actions {
-    margin-top: 2rem;
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
+    margin-top: 20px;
 }
 
 .action-group {
-    margin-bottom: 1rem;
     display: flex;
-    gap: 1rem;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 #message-input {
-    flex-grow: 1;
+    flex: 1;
+}
+
+/* Status Bar */
+#status-bar {
+    height: 22px;
+    background-color: var(--bg-status-bar);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    font-size: 0.8rem;
+    cursor: default;
+}
+
+.status-left, .status-right {
+    display: flex;
+    gap: 15px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+.status-item:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+/* Helpers */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #sidebar {
+        display: none; /* Hide sidebar on small screens for now, or make it an overlay */
+    }
+
+    #activity-bar {
+        display: none; /* Simplify for mobile */
+    }
+
+    .split-view {
+        flex-direction: column;
+    }
+
+    .panel-right {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid var(--border-color);
+        padding-top: 20px;
+    }
+
+    #status-bar {
+        height: auto;
+        padding: 2px 10px;
+    }
+
+    .status-right {
+        display: none;
+    }
 }
