@@ -11,6 +11,8 @@ export default defineConfig({
     stderr: 'pipe',
     env: {
         MOCK_MODE: 'true',
+        JULES_AUTH_USER: 'testuser',
+        JULES_AUTH_PASS: 'testpass',
         // Force coverage output folder to be distinct if needed, but default .nyc_output is fine
     }
   },

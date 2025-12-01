@@ -6,7 +6,8 @@ test('End to End Flow', async ({ page }) => {
 
   // Handle Login Modal
   await page.waitForSelector('#login-modal:not(.hidden)');
-  await page.fill('#api-key-input', 'default-secret-key');
+  await page.fill('#username-input', 'testuser');
+  await page.fill('#password-input', 'testpass');
   await page.click('#login-btn');
   await page.waitForSelector('#login-modal', { state: 'hidden' });
 
