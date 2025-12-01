@@ -5,61 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jules API Interface</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons could be good, but I'll stick to text/unicode to avoid external deps if possible, or maybe basic SVGs -->
 </head>
 <body>
-    <header>
-        <h1>Jules API Interface</h1>
-        <!-- Auth handled by backend configuration -->
-    </header>
+    <div id="app-shell">
+        <aside id="activity-bar">
+            <div class="activity-icon active" title="Explorer">
+                <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 1h11a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 .5-.5zm11 14V2H10v3.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V2H2.5v13h11zm-4-13.5V5h3V1.5h-3z"/></svg>
+            </div>
+            <div class="activity-icon" title="Search">
+                 <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.68 11.74a6 6 0 0 1-7.922-8.98 6 6 0 0 1 8.98 7.92l3.134 3.134a.75.75 0 1 1-1.06 1.06l-3.133-3.134zm-7.922-7.92a4.5 4.5 0 1 1 6.364 6.364 4.5 4.5 0 0 1-6.364-6.364z"/></svg>
+            </div>
+        </aside>
 
-    <main id="app">
-        <!-- Views will be injected here -->
-        <nav>
-            <button id="nav-list">List Sessions</button>
-            <button id="nav-create">Create Session</button>
-        </nav>
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <span>EXPLORER</span>
+                <span class="sidebar-actions">...</span>
+            </div>
 
-        <section id="view-list" class="view">
-            <h2>Sessions</h2>
-            <div id="sessions-container"></div>
-        </section>
-
-        <section id="view-create" class="view hidden">
-            <h2>Create New Session</h2>
-            <form id="create-session-form">
-                <label for="prompt">Prompt:</label>
-                <textarea id="prompt" required></textarea>
-
-                <label for="source">Source (e.g., sources/my-source):</label>
-                <input type="text" id="source" required>
-
-                <label for="branch">Starting Branch:</label>
-                <input type="text" id="branch" value="main" required>
-
-                <button type="submit">Create</button>
-            </form>
-        </section>
-
-        <section id="view-details" class="view hidden">
-            <button id="back-to-list">← Back to List</button>
-            <h2 id="session-title">Session Details</h2>
-            <div id="session-info"></div>
-
-            <h3>Activities</h3>
-            <div id="activities-container"></div>
-
-            <div class="actions">
-                <h3>Actions</h3>
-                <div class="action-group">
-                    <textarea id="message-input" placeholder="Type a message..."></textarea>
-                    <button id="send-message-btn">Send Message</button>
+            <div class="sidebar-section">
+                <div class="section-header expanded">
+                    <span class="codicon codicon-chevron-down">▼</span>
+                    <span>SESSIONS</span>
                 </div>
-                <div class="action-group">
-                    <button id="approve-plan-btn">Approve Plan</button>
+                <nav id="explorer-nav">
+                    <button id="nav-list" class="explorer-item active">
+                        <span class="icon">≡</span> List Sessions
+                    </button>
+                    <button id="nav-create" class="explorer-item">
+                        <span class="icon">+</span> Create Session
+                    </button>
+                </nav>
+            </div>
+        </aside>
+
+        <main id="editor-area">
+            <div class="tabs-container">
+                <div class="tab active">
+                    <span class="tab-icon">JS</span>
+                    <span class="tab-title">Jules Interface</span>
+                    <span class="tab-close">×</span>
                 </div>
             </div>
-        </section>
-    </main>
+
+            <div class="content-container">
+                <!-- Views will be injected here -->
+
+                <section id="view-list" class="view">
+                    <div class="view-header">
+                        <h2>Sessions</h2>
+                    </div>
+                    <div id="sessions-container" class="scrollable-content"></div>
+                </section>
+
+                <section id="view-create" class="view hidden">
+                    <div class="view-header">
+                         <h2>Create New Session</h2>
+                    </div>
+                    <form id="create-session-form" class="scrollable-content">
+                        <div class="form-group">
+                            <label for="prompt">Prompt</label>
+                            <textarea id="prompt" required placeholder="Describe what you want to build..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="source">Source</label>
+                            <input type="text" id="source" required placeholder="sources/my-source">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="branch">Starting Branch</label>
+                            <input type="text" id="branch" value="main" required>
+                        </div>
+
+                        <button type="submit" class="primary-btn">Create Session</button>
+                    </form>
+                </section>
+
+                <section id="view-details" class="view hidden">
+                    <div class="view-header">
+                        <button id="back-to-list" class="secondary-btn">← Back</button>
+                        <h2 id="session-title">Session Details</h2>
+                    </div>
+
+                    <div class="split-view scrollable-content">
+                        <div class="panel-left">
+                            <div id="session-info" class="info-card"></div>
+
+                            <h3>Actions</h3>
+                            <div class="actions">
+                                <div class="action-group">
+                                    <textarea id="message-input" placeholder="Type a message to the agent..."></textarea>
+                                    <button id="send-message-btn" class="primary-btn">Send Message</button>
+                                </div>
+                                <div class="action-group">
+                                    <button id="approve-plan-btn" class="success-btn">Approve Plan</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-right">
+                             <h3>Activities</h3>
+                             <div id="activities-container"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <footer id="status-bar">
+        <div class="status-left">
+            <div class="status-item"><span class="icon">⑂</span> main*</div>
+            <div class="status-item"><span class="icon">⊗</span> 0 <span class="icon">⚠</span> 0</div>
+        </div>
+        <div class="status-right">
+            <div class="status-item">Ln 1, Col 1</div>
+            <div class="status-item">UTF-8</div>
+            <div class="status-item">JavaScript</div>
+            <div class="status-item notification-icon">bell</div>
+        </div>
+    </footer>
 
     <script src="app.js"></script>
 </body>
