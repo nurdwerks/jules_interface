@@ -342,26 +342,40 @@ function renderActivity(activity) {
     const typeClass = isAgent ? 'agent' : 'user';
     const time = activity.createTime ? new Date(activity.createTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '';
 
+    // Encode activity data for the modal
+    const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(activity))));
+
     return `
         <div class="activity-item ${typeClass}">
             <div class="chat-bubble">
                 ${content}
             </div>
-            <div class="activity-meta">${time}</div>
+            <div class="activity-meta">
+                <span>${time}</span>
+                <button class="view-raw-btn" title="View Raw JSON" onclick="viewRawActivity('${b64}')">
+                    <span style="font-size:1.2em">👁</span>
+                </button>
+            </div>
         </div>
     `;
 }
 
-function renderActivities(activities) {
+function renderActivities(activities, forceScroll = false) {
     const activitiesContainer = document.getElementById('activities-container');
     if (activitiesContainer) {
+        // Smart Scroll Logic
+        const isAtBottom = (activitiesContainer.scrollHeight - activitiesContainer.scrollTop - activitiesContainer.clientHeight) < 50;
+
         activitiesContainer.innerHTML = '';
         if (activities && activities.length > 0) {
             activities.forEach(act => {
                 activitiesContainer.innerHTML += renderActivity(act);
             });
-            // Scroll to bottom
-            activitiesContainer.scrollTop = activitiesContainer.scrollHeight;
+
+            // If was at bottom OR forced, scroll to bottom
+            if (isAtBottom || forceScroll) {
+                activitiesContainer.scrollTop = activitiesContainer.scrollHeight;
+            }
         } else {
             activitiesContainer.innerHTML = '<p style="text-align:center;color:#666">No activities.</p>';
         }
@@ -390,7 +404,8 @@ async function viewSession(sessionName) {
         // Fetch activities
         try {
             const activitiesData = await apiCall(`${sessionName}/activities`);
-            renderActivities(activitiesData.activities);
+            // Force scroll to bottom on initial view
+            renderActivities(activitiesData.activities, true);
         } catch (e) {
              console.warn("Could not fetch activities", e);
         }
