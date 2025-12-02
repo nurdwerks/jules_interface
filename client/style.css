@@ -350,6 +350,24 @@ body {
     color: var(--text-muted);
     margin-top: 4px;
     padding: 0 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-raw-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    padding: 2px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+}
+.view-raw-btn:hover {
+    opacity: 1;
+    color: var(--text-main);
 }
 
 .plan-card {
@@ -508,6 +526,44 @@ body {
     border-radius: 8px;
     width: 320px;
     border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+}
+.modal-large {
+    width: 800px;
+    max-width: 90vw;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+.close-modal-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+.close-modal-btn:hover { color: var(--text-main); }
+.modal-body {
+    overflow-y: auto;
+    flex: 1;
+}
+#json-content {
+    background: var(--bg-input);
+    padding: 16px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: var(--text-main);
 }
 .modal-input {
     width: 100%;
