@@ -644,3 +644,14 @@ body {
     margin-top: 4px;
     font-size: 0.9em;
 }
+
+.artifact-media {
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.artifact-image {
+    max-width: 100%;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}

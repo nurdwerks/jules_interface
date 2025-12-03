@@ -359,7 +359,13 @@ function renderActivity(activity) {
         content += '<div class="artifacts-header">Artifacts</div>';
 
         activity.artifacts.forEach(artifact => {
-            if (artifact.bashOutput) {
+            if (artifact.media) {
+                content += `
+                    <div class="artifact-media">
+                        <img src="data:${artifact.media.mimeType};base64,${artifact.media.data}" alt="Media Artifact" class="artifact-image" />
+                    </div>
+                `;
+            } else if (artifact.bashOutput) {
                 // Escape HTML to prevent XSS and rendering issues
                 const escapeHtml = (text) => {
                     if (!text) return '';
