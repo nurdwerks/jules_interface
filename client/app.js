@@ -226,6 +226,15 @@ function renderSessions() {
         div.appendChild(span);
 
         div.addEventListener('click', () => viewSession(session.name));
+
+        div.addEventListener('contextmenu', (e) => {
+             e.preventDefault();
+             const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(session))));
+             if (window.viewRawSession) {
+                 window.viewRawSession(b64);
+             }
+        });
+
         list.appendChild(div);
     });
 }
