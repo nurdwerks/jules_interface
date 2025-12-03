@@ -1,16 +1,27 @@
 
-function viewRawActivity(b64) {
+function showJsonModal(b64, title) {
     try {
         const jsonStr = decodeURIComponent(escape(atob(b64)));
         const modal = document.getElementById('json-modal');
         const content = document.getElementById('json-content');
+        const titleEl = modal.querySelector('.modal-header h2');
+
         if (modal && content) {
             content.innerText = JSON.stringify(JSON.parse(jsonStr), null, 2);
+            if (titleEl) titleEl.innerText = title;
             modal.classList.remove('hidden');
         }
     } catch (e) {
-        console.error("Error viewing raw activity", e);
+        console.error("Error viewing json", e);
     }
+}
+
+function viewRawActivity(b64) {
+    showJsonModal(b64, "Raw Activity Data");
+}
+
+function viewArtifact(b64) {
+    showJsonModal(b64, "Artifact Content");
 }
 
 // Modal Close Handlers
@@ -30,3 +41,4 @@ if (jsonModal) {
     });
 }
 window.viewRawActivity = viewRawActivity;
+window.viewArtifact = viewArtifact;
