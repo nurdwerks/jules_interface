@@ -24,6 +24,10 @@ function viewArtifact(b64) {
     showJsonModal(b64, "Artifact Content");
 }
 
+function viewRawSession(b64) {
+    showJsonModal(b64, "Raw Session Data");
+}
+
 // Modal Close Handlers
 const jsonModal = document.getElementById('json-modal');
 if (jsonModal) {
@@ -42,3 +46,4 @@ if (jsonModal) {
 }
 window.viewRawActivity = viewRawActivity;
 window.viewArtifact = viewArtifact;
+window.viewRawSession = viewRawSession;
