@@ -50,6 +50,14 @@ export default async function (fastify, opts) {
                 } else {
                     if (!socket.authenticated) {
                         socket.send(JSON.stringify({ type: 'authRequired' }));
+                    } else if (data.type === 'subscribe') {
+                        if (data.sessionId) {
+                            socket.subscribedSessionId = data.sessionId;
+                            fastify.log.info(`Client subscribed to session ${data.sessionId}`);
+                        }
+                    } else if (data.type === 'unsubscribe') {
+                        socket.subscribedSessionId = null;
+                        fastify.log.info(`Client unsubscribed from session`);
                     } else {
                         // Handle other messages if any
                     }

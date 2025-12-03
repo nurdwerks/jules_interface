@@ -1,7 +1,8 @@
 // client/app.js
 
 let sessions = [];
-let currentSessionId = null;
+let currentSessionId = null; // Stores session name (e.g. sessions/123)
+let currentSubscribedSessionId = null; // Stores session ID (e.g. 123)
 let sources = [];
 
 // WebSocket
@@ -137,6 +138,9 @@ async function apiCall(endpoint, method = 'GET', body = null) {
 // UI Functions
 
 function showView(viewName) {
+    if (viewName !== 'details') {
+        updateSubscription(null);
+    }
     document.querySelectorAll('.view').forEach(el => el.classList.add('hidden'));
     document.getElementById(`view-${viewName}`).classList.remove('hidden');
 }
@@ -382,6 +386,18 @@ function renderActivities(activities, forceScroll = false) {
     }
 }
 
+async function updateSubscription(newSessionId) {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+        if (currentSubscribedSessionId && currentSubscribedSessionId !== newSessionId) {
+             ws.send(JSON.stringify({ type: 'unsubscribe' }));
+        }
+        if (newSessionId) {
+            ws.send(JSON.stringify({ type: 'subscribe', sessionId: newSessionId }));
+        }
+    }
+    currentSubscribedSessionId = newSessionId;
+}
+
 async function viewSession(sessionName) {
     currentSessionId = sessionName;
     renderSessions(); // Update active class in sidebar
@@ -409,6 +425,9 @@ async function viewSession(sessionName) {
         } catch (e) {
              console.warn("Could not fetch activities", e);
         }
+
+        // Subscribe
+        updateSubscription(session.id);
 
         showView('details');
     } catch (err) {
