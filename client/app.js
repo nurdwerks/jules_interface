@@ -131,6 +131,13 @@ async function apiCall(endpoint, method = 'GET', body = null) {
         headers,
         body: body ? JSON.stringify(body) : null
     });
+
+    if (res.status === 401) {
+        localStorage.removeItem('sessionToken');
+        showLogin();
+        throw new Error("Unauthorized");
+    }
+
     if (!res.ok) throw new Error(await res.text());
     return res.json();
 }
