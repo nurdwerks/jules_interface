@@ -353,6 +353,46 @@ function renderActivity(activity) {
     const typeClass = isAgent ? 'agent' : 'user';
     const time = activity.createTime ? new Date(activity.createTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '';
 
+    // Handle Artifacts
+    if (activity.artifacts && Array.isArray(activity.artifacts) && activity.artifacts.length > 0) {
+        content += '<div class="artifacts-container">';
+        content += '<div class="artifacts-header">Artifacts</div>';
+
+        activity.artifacts.forEach(artifact => {
+            if (artifact.bashOutput) {
+                // Escape HTML to prevent XSS and rendering issues
+                const escapeHtml = (text) => {
+                    if (!text) return '';
+                    return text
+                        .replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;")
+                        .replace(/"/g, "&quot;")
+                        .replace(/'/g, "&#039;");
+                };
+
+                const cmd = escapeHtml(artifact.bashOutput.command);
+                const out = escapeHtml(artifact.bashOutput.output);
+                const exitCode = artifact.bashOutput.exitCode;
+
+                content += `
+                    <div class="artifact-bash">
+                        <div class="artifact-bash-cmd">
+                            <span class="artifact-bash-prompt">$</span>
+                            <span>${cmd}</span>
+                        </div>
+                        <pre class="artifact-bash-out">${out}</pre>
+                        ${exitCode !== 0 && exitCode !== undefined ? `<div class="artifact-exit-code">Exit Code: ${exitCode}</div>` : ''}
+                    </div>
+                `;
+            } else {
+                const artB64 = btoa(unescape(encodeURIComponent(JSON.stringify(artifact))));
+                content += `<button class="secondary-btn" style="font-size: 0.8rem; padding: 4px 8px; margin-right: 8px; margin-bottom: 8px;" onclick="viewArtifact('${artB64}')">View Artifact</button>`;
+            }
+        });
+        content += '</div>';
+    }
+
     // Encode activity data for the modal
     const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(activity))));
 

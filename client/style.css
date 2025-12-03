@@ -593,3 +593,54 @@ body {
         transform: rotate(360deg);
     }
 }
+
+/* Artifacts */
+.artifacts-container {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.artifacts-header {
+    font-size: 0.8em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.artifact-bash {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 8px;
+    font-family: monospace;
+    font-size: 0.85em;
+}
+
+.artifact-bash-cmd {
+    color: #fff;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.artifact-bash-prompt {
+    color: var(--accent-green);
+    margin-right: 8px;
+    user-select: none;
+}
+
+.artifact-bash-out {
+    color: #ccc;
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+
+.artifact-exit-code {
+    color: var(--accent-red);
+    margin-top: 4px;
+    font-size: 0.9em;
+}
