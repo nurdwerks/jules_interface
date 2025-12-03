@@ -316,7 +316,7 @@ function renderActivity(activity) {
         isAgent = false;
         content = activity.userMessaged.userMessage;
     } else if (activity.agentMessaged) {
-        content = activity.agentMessaged.agentMessage;
+        content = marked.parse(activity.agentMessaged.agentMessage);
     } else if (activity.planGenerated) {
         content = `<strong>Plan Generated:</strong>`;
         const steps = activity.planGenerated.plan?.steps || [];

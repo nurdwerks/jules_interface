@@ -28,6 +28,7 @@
     "fastify-autoload": "^3.12.0",
     "fastify-plugin": "^5.1.0",
     "level": "^10.0.0",
+    "marked": "^17.0.1",
     "ws": "^8.18.3"
   },
   "devDependencies": {
