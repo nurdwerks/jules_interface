@@ -310,9 +310,30 @@ export default fp(async (fastify, opts) => {
           setTimeout(runPoll, 5000);
       };
 
+      const runActivePoll = async () => {
+        try {
+            if (!fastify.websocketServer) return; // Guard
+            const clients = fastify.websocketServer.clients;
+            const activeSessionIds = new Set();
+            clients.forEach(client => {
+                if (client.readyState === 1 && client.authenticated && client.subscribedSessionId) {
+                    activeSessionIds.add(client.subscribedSessionId);
+                }
+            });
+
+            for (const sessionId of activeSessionIds) {
+                await updateSingleSession(sessionId); // This already handles fetching session + activities and broadcasting
+            }
+        } catch (e) {
+            fastify.log.error(e, "Active polling error");
+        }
+        setTimeout(runActivePoll, 1000);
+      };
+
       fastify.ready(async () => {
           await syncSessions();
           runPoll();
+          runActivePoll();
       });
   }
 });
